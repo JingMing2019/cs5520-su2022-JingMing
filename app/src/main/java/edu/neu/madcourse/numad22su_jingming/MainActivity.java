@@ -2,6 +2,7 @@ package edu.neu.madcourse.numad22su_jingming;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +21,13 @@ public class MainActivity extends AppCompatActivity{
         aboutMeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameAndEmail = "Jing Ming: ming.j@northeastern.edu";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(MainActivity.this, nameAndEmail, duration);
-                toast.show();
+                Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
+                startActivity(intent);
+//                String nameAndEmail = "Jing Ming: ming.j@northeastern.edu";
+//                int duration = Toast.LENGTH_SHORT;
+//
+//                Toast toast = Toast.makeText(MainActivity.this, nameAndEmail, duration);
+//                toast.show();
             }
         });
 

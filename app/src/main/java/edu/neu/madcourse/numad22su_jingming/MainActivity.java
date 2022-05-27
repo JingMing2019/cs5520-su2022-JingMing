@@ -16,31 +16,24 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // click about_me_button, show a toast containing name and email
-        Button aboutMeButton = findViewById(R.id.about_me_button);
-        aboutMeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nameAndEmail = "Jing Ming: ming.j@northeastern.edu";
-                int duration = Toast.LENGTH_SHORT;
+        // click about_me_ID, show a toast containing name and email
+        Button aboutMeButton = findViewById(R.id.about_me_ID);
+        aboutMeButton.setOnClickListener(v -> {
+            String nameAndEmail = "Jing Ming: ming.j@northeastern.edu";
+            int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(MainActivity.this, nameAndEmail, duration);
-                toast.show();
-            }
+            Toast.makeText(MainActivity.this, nameAndEmail, duration).show();
         });
 
-        // click clicky_button, show a new activity
-        Button clickyButton = findViewById(R.id.clicky_button);
-        clickyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
-                startActivity(intent);
-            }
+        // click clicky_ID, show a new activity
+        Button clickyButton = findViewById(R.id.clicky_ID);
+        clickyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
+            startActivity(intent);
         });
 
         // show text "hello world"
-        TextView textView = findViewById(R.id.helloID);
+        TextView textView = findViewById(R.id.hello_ID);
         textView.setText(R.string.hello_world_string);
     }
 }

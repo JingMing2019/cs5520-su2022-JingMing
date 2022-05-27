@@ -7,87 +7,93 @@
 
 
     <Button
-        android:id="@+id/button_a"
+        android:id="@+id/a_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_a_string"
-        app:layout_constraintBottom_toTopOf="@+id/button_d"
-        app:layout_constraintEnd_toStartOf="@+id/button_b"
+        app:layout_constraintBottom_toTopOf="@+id/d_ID"
+        app:layout_constraintEnd_toStartOf="@+id/b_ID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/button_b"
+        android:id="@+id/b_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_b_string"
-        app:layout_constraintBottom_toTopOf="@+id/button_e"
-        app:layout_constraintEnd_toStartOf="@+id/button_c"
-        app:layout_constraintStart_toEndOf="@+id/button_a"
+        app:layout_constraintBottom_toTopOf="@+id/e_ID"
+        app:layout_constraintEnd_toStartOf="@+id/c_ID"
+        app:layout_constraintStart_toEndOf="@+id/a_ID"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/button_c"
+        android:id="@+id/c_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_c_string"
-        app:layout_constraintBottom_toTopOf="@+id/button_f"
+        app:layout_constraintBottom_toTopOf="@+id/f_ID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_b"
+        app:layout_constraintStart_toEndOf="@+id/b_ID"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/button_d"
+        android:id="@+id/d_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_d_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toStartOf="@+id/button_e"
+        app:layout_constraintEnd_toStartOf="@+id/e_ID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_a" />
+        app:layout_constraintTop_toBottomOf="@id/a_ID" />
 
     <Button
-        android:id="@+id/button_e"
+        android:id="@+id/e_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_e_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toStartOf="@+id/button_f"
-        app:layout_constraintStart_toEndOf="@id/button_d"
-        app:layout_constraintTop_toBottomOf="@+id/button_b" />
+        app:layout_constraintEnd_toStartOf="@+id/f_ID"
+        app:layout_constraintStart_toEndOf="@id/d_ID"
+        app:layout_constraintTop_toBottomOf="@+id/b_ID" />
 
     <Button
-        android:id="@+id/button_f"
+        android:id="@+id/f_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="@string/button_f_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/button_e"
-        app:layout_constraintTop_toBottomOf="@id/button_c" />
+        app:layout_constraintStart_toEndOf="@id/e_ID"
+        app:layout_constraintTop_toBottomOf="@id/c_ID" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="text_press"
+        app:constraint_referenced_ids="press_ID"
         tools:layout_editor_absoluteY="712dp" />
 
     <TextView
-        android:id="@+id/text_press"
+        android:id="@+id/press_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pressed_string"
+        android:text="@string/default_press_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_e" />
+        app:layout_constraintTop_toBottomOf="@+id/e_ID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

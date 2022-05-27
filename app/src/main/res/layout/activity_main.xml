@@ -7,34 +7,34 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/helloID"
+        android:id="@+id/hello_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_string"
-        app:layout_constraintBottom_toTopOf="@+id/about_me_button"
+        app:layout_constraintBottom_toTopOf="@+id/about_me_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/about_me_button"
+        android:id="@+id/about_me_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_me_string"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/helloID"
+        app:layout_constraintTop_toBottomOf="@id/hello_ID"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/clicky_button"
+        app:layout_constraintEnd_toStartOf="@+id/clicky_ID"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/clicky_button"
+        android:id="@+id/clicky_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/clicky_string"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/helloID"
-        app:layout_constraintStart_toEndOf="@id/about_me_button"
+        app:layout_constraintTop_toBottomOf="@id/hello_ID"
+        app:layout_constraintStart_toEndOf="@id/about_me_ID"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

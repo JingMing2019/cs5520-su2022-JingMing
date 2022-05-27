@@ -10,4 +10,5 @@
     <string name="button_e_string">E</string>
     <string name="button_f_string">F</string>
     <string name="pressed_string">Pressed:</string>
+    <string name="default_press_string">Pressed: -</string>
 </resources>

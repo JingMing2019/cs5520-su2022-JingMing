@@ -2,4 +2,5 @@
     <string name="app_name">NUMAD22Su_JingMing</string>
     <string name="about_me_string">About Me</string>
     <string name="hello_world_string">Hello World!</string>
+    <string name="clicky_string">Clicky Clicky</string>
 </resources>

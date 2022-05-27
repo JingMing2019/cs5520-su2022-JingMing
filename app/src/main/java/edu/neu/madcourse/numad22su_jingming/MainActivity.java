@@ -9,14 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
-    private Button aboutMeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        aboutMeButton = findViewById(R.id.about_me_button);
+        // click about_me_button, show a toast containing name and email
+        Button aboutMeButton = findViewById(R.id.about_me_button);
         aboutMeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        // show text "hello world"
         TextView textView = findViewById(R.id.helloID);
         textView.setText(R.string.hello_world_string);
     }

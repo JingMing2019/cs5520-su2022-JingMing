@@ -3,4 +3,11 @@
     <string name="about_me_string">About Me</string>
     <string name="hello_world_string">Hello World!</string>
     <string name="clicky_string">Clicky Clicky</string>
+    <string name="button_a_string">A</string>
+    <string name="button_b_string">B</string>
+    <string name="button_c_string">C</string>
+    <string name="button_d_string">D</string>
+    <string name="button_e_string">E</string>
+    <string name="button_f_string">F</string>
+    <string name="pressed_string">Pressed:</string>
 </resources>

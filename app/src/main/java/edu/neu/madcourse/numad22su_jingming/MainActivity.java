@@ -2,6 +2,7 @@ package edu.neu.madcourse.numad22su_jingming;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,16 @@ public class MainActivity extends AppCompatActivity{
 
                 Toast toast = Toast.makeText(MainActivity.this, nameAndEmail, duration);
                 toast.show();
+            }
+        });
+
+        // click clicky_button, show a new activity
+        Button clickyButton = findViewById(R.id.clicky_button);
+        clickyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -13,4 +13,5 @@
     <string name="button_f_string">F</string>
     <string name="pressed_string">Pressed:</string>
     <string name="default_press_string">Pressed: -</string>
+    <string name="link_collector_string">Link Collector</string>
 </resources>

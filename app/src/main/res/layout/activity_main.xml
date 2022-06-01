@@ -6,26 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/hello_ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world_string"
-        app:layout_constraintBottom_toTopOf="@+id/about_me_ID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/about_me_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_me_string"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/hello_ID"
+        app:layout_constraintBottom_toTopOf="@+id/hello_ID"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/clicky_ID"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hello_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world_string"
+        app:layout_constraintBottom_toTopOf="@+id/clicky_ID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_me_ID" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="hello_ID"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="hello_ID"
+        tools:layout_editor_absoluteY="383dp" />
 
     <Button
         android:id="@+id/clicky_ID"
@@ -33,9 +49,21 @@
         android:layout_height="wrap_content"
         android:text="@string/clicky_string"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/hello_ID"
-        app:layout_constraintStart_toEndOf="@id/about_me_ID"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@+id/link_collector_ID"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hello_ID" />
+
+    <Button
+        android:id="@+id/link_collector_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/link_collector_string"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clicky_ID"
+        app:layout_constraintTop_toBottomOf="@id/hello_ID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,22 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
+    private Button aboutMeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // click about_me_ID, show a toast containing name and email
+        // click about_me_ID, show name and email in a new activity
         Button aboutMeButton = findViewById(R.id.about_me_ID);
         aboutMeButton.setOnClickListener(v -> {
-            String nameAndEmail = "Jing Ming: ming.j@northeastern.edu";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast.makeText(MainActivity.this, nameAndEmail, duration).show();
+            Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
+            startActivity(intent);
         });
 
-        // click clicky_ID, show a new activity
+        // click clicky_ID, show 6 buttons in a new activity
         Button clickyButton = findViewById(R.id.clicky_ID);
         clickyButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ClickyActivity.class);

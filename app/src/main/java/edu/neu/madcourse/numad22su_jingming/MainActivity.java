@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
-    private Button aboutMeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +25,13 @@ public class MainActivity extends AppCompatActivity{
         Button clickyButton = findViewById(R.id.clicky_ID);
         clickyButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ClickyActivity.class);
+            startActivity(intent);
+        });
+
+        // click link_collector_ID, show a new activity with a list of links
+        Button linkCollectorButton = findViewById(R.id.link_collector_ID);
+        linkCollectorButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, LinkCollectorActivity.class);
             startActivity(intent);
         });
 

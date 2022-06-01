@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".AboutMeActivity" />
         <activity android:name=".ClickyActivity" />
+        <activity android:name=".LinkCollectorActivity" />
     </application>
 
 </manifest>

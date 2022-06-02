@@ -19,7 +19,7 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab_link_collector_ID) {
-            Snackbar.make(v, "Link creation successful", Snackbar.LENGTH_LONG)
+            Snackbar.make(v, R.string.create_link_success, Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
     }

@@ -2,7 +2,6 @@ package edu.neu.madcourse.numad22su_jingming;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -25,17 +24,17 @@ public class ClickyActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         pressTV.setText(R.string.pressed_string);
         pressTV.append(" ");
-        if (v.getId() == R.id.a_ID) {
+        if (v.getId() == R.id.aID) {
             pressTV.append(getString(R.string.button_a_string));
-        } else if (v.getId() == R.id.b_ID) {
+        } else if (v.getId() == R.id.bID) {
             pressTV.append(getString(R.string.button_b_string));
-        } else if (v.getId() == R.id.c_ID) {
+        } else if (v.getId() == R.id.cID) {
             pressTV.append(getString(R.string.button_c_string));
-        } else if (v.getId() == R.id.d_ID) {
+        } else if (v.getId() == R.id.dID) {
             pressTV.append(getString(R.string.button_d_string));
-        } else if (v.getId() == R.id.e_ID) {
+        } else if (v.getId() == R.id.eID) {
             pressTV.append(getString(R.string.button_e_string));
-        } else if (v.getId() == R.id.f_ID) {
+        } else if (v.getId() == R.id.fID) {
             pressTV.append(getString(R.string.button_f_string));
         } else {
             pressTV.append(" - ");

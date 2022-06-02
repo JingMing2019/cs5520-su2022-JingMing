@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:text="@string/about_me_string"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/hello_ID"
+        app:layout_constraintBottom_toTopOf="@+id/helloID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/hello_ID"
+        android:id="@+id/helloID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_string"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="hello_ID"
+        app:constraint_referenced_ids="helloID"
         tools:layout_editor_absoluteY="383dp" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="hello_ID"
+        app:constraint_referenced_ids="helloID"
         tools:layout_editor_absoluteY="383dp" />
 
     <Button
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toStartOf="@+id/link_collector_ID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hello_ID" />
+        app:layout_constraintTop_toBottomOf="@id/helloID" />
 
     <Button
         android:id="@+id/link_collector_ID"
@@ -64,6 +64,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/clicky_ID"
-        app:layout_constraintTop_toBottomOf="@id/hello_ID" />
+        app:layout_constraintTop_toBottomOf="@id/helloID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

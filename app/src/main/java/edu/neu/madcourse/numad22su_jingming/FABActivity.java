@@ -2,13 +2,40 @@ package edu.neu.madcourse.numad22su_jingming;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import edu.neu.madcourse.numad22su_jingming.databinding.ActivityFabBinding;
 
 public class FABActivity extends AppCompatActivity {
+    private ActivityFabBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fab);
+        binding = ActivityFabBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+    }
+
+    public void SaveLink(View view){
+        finish();
+    }
+
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+
+        String nameString = binding.linkNameID.getText().toString();
+        data.putExtra("nameString", nameString);
+
+        String urlString = binding.linkURLID.getText().toString();
+        data.putExtra("urlString", urlString);
+
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         // show text "hello world"
-        TextView textView = findViewById(R.id.hello_ID);
+        TextView textView = findViewById(R.id.helloID);
         textView.setText(R.string.hello_world_string);
     }
 }

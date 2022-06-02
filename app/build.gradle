@@ -3,6 +3,10 @@ plugins {
 }
 
 android {
+    buildFeatures{
+        viewBinding true;
+    }
+
     signingConfigs {
         myconfig {
             storeFile file('/Users/jingming/Documents/Android_Learn/keystores/classkeystores')

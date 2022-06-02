@@ -7,75 +7,75 @@
 
 
     <Button
-        android:id="@+id/a_ID"
+        android:id="@+id/aID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_a_string"
-        app:layout_constraintBottom_toTopOf="@+id/d_ID"
-        app:layout_constraintEnd_toStartOf="@+id/b_ID"
+        app:layout_constraintBottom_toTopOf="@+id/dID"
+        app:layout_constraintEnd_toStartOf="@+id/bID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/b_ID"
+        android:id="@+id/bID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_b_string"
-        app:layout_constraintBottom_toTopOf="@+id/e_ID"
-        app:layout_constraintEnd_toStartOf="@+id/c_ID"
-        app:layout_constraintStart_toEndOf="@+id/a_ID"
+        app:layout_constraintBottom_toTopOf="@+id/eID"
+        app:layout_constraintEnd_toStartOf="@+id/cID"
+        app:layout_constraintStart_toEndOf="@+id/aID"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/c_ID"
+        android:id="@+id/cID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_c_string"
-        app:layout_constraintBottom_toTopOf="@+id/f_ID"
+        app:layout_constraintBottom_toTopOf="@+id/fID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/b_ID"
+        app:layout_constraintStart_toEndOf="@+id/bID"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <Button
-        android:id="@+id/d_ID"
+        android:id="@+id/dID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_d_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toStartOf="@+id/e_ID"
+        app:layout_constraintEnd_toStartOf="@+id/eID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/a_ID" />
+        app:layout_constraintTop_toBottomOf="@id/aID" />
 
     <Button
-        android:id="@+id/e_ID"
+        android:id="@+id/eID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_e_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
-        app:layout_constraintEnd_toStartOf="@+id/f_ID"
-        app:layout_constraintStart_toEndOf="@id/d_ID"
-        app:layout_constraintTop_toBottomOf="@+id/b_ID" />
+        app:layout_constraintEnd_toStartOf="@+id/fID"
+        app:layout_constraintStart_toEndOf="@id/dID"
+        app:layout_constraintTop_toBottomOf="@+id/bID" />
 
     <Button
-        android:id="@+id/f_ID"
+        android:id="@+id/fID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/button_f_string"
         app:layout_constraintBottom_toBottomOf="@id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/e_ID"
-        app:layout_constraintTop_toBottomOf="@id/c_ID" />
+        app:layout_constraintStart_toEndOf="@id/eID"
+        app:layout_constraintTop_toBottomOf="@id/cID" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -94,6 +94,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/e_ID" />
+        app:layout_constraintTop_toBottomOf="@+id/eID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

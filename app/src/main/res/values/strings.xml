@@ -16,4 +16,7 @@
     <string name="link_collector_string">Link Collector</string>
     <string name="add_link_string">Add Link</string>
     <string name="create_link_success">Create Link Successful</string>
+    <string name="save_link_string">Save Link</string>
+    <string name="url_string">URL</string>
+    <string name="link_name_string">Name</string>
 </resources>

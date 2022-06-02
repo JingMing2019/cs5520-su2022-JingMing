@@ -25,6 +25,7 @@
         <activity android:name=".AboutMeActivity" />
         <activity android:name=".ClickyActivity" />
         <activity android:name=".LinkCollectorActivity" />
+        <activity android:name=".FABActivity" />
     </application>
 
 </manifest>

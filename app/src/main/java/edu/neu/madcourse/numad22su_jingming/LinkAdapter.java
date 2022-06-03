@@ -9,10 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * This is a recyclerview adapter class, the purpose of this class is to act as a bridge between the
+ * collection (arraylist) and the view (recyclerview). This class provides 3 methods that are
+ * utilised for binding the data to the view.
+ */
 public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
     private final List<Link> links;
     private final Context context;
 
+    /**
+     * Creates a LinkAdapter with the provided arraylist of Person objects.
+     *
+     * @param links    arraylist of Link object.
+     * @param context   context of the activity used for inflating layout of the viewHolder.
+     */
     public LinkAdapter(List<Link> links, Context context){
         this.links = links;
         this.context = context;
@@ -21,17 +32,21 @@ public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
     @NonNull
     @Override
     public LinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Create an instance of the viewHolder by passing it the layout inflated as view and not
+        // attach to parent
         return new LinkViewHolder(LayoutInflater.from(context).
                 inflate(R.layout.item_link, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull LinkViewHolder holder, int position) {
+        // display the data in the given position
         holder.bindThisData(links.get(position));
     }
 
     @Override
     public int getItemCount() {
+        // Returns the size of the recyclerView that is the list of the arraylist.
         return links.size();
     }
 }

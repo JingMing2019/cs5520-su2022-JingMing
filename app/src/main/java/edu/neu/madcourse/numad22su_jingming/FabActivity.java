@@ -11,6 +11,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import edu.neu.madcourse.numad22su_jingming.databinding.ActivityFabBinding;
 
+/**
+ * This is a sub-activity of LinkCollectorActivity. The purpose of this class is to collect the name
+ * and the url of a link entered by the user.
+ */
 public class FabActivity extends AppCompatActivity {
     private ActivityFabBinding binding;
 

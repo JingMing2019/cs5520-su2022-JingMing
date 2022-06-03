@@ -53,6 +53,7 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
         @Override
         public void onClick(View v) {
             linkList.remove(linkList.size() - 1);
+            // inform the adapter that the last item is removed from the linkList
             Objects.requireNonNull(linksRecyclerView.getAdapter()).notifyItemRemoved(linkList.size());
             Snackbar.make(findViewById(R.id.coordinateLayout),
                             R.string.link_remove, Snackbar.LENGTH_LONG).show();
@@ -83,10 +84,10 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        // click fab button launches a new activity
+        // click fab button launches a FabActivity
         if (v.getId() == R.id.fabLinkCollectorID) {
             Intent intent = new Intent(this, FabActivity.class);
-            // wait for the result from FabActivity
+            // wait for the result from the FabActivity
             startForResult.launch(intent);
         }
     }

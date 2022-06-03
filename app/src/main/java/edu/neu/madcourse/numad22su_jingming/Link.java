@@ -7,10 +7,20 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+/**
+ * This is a Parcelable Link class. This class represents the Link with the name and the url. The
+ * instances created from this class can be written to and restored from the parcel.
+ */
 public class Link extends ArrayList<Parcelable> implements Parcelable {
     private final String name;
     private final String url;
 
+    /**
+     * Constructs a {@code Link} object with the specified name and URL.
+     *
+     * @param name - name of the link.
+     * @param url -  url of the link.
+     */
     public Link(String name, String url){
         this.name = name;
         this.url = url;

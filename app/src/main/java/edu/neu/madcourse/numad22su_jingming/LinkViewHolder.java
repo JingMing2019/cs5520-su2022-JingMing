@@ -6,9 +6,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * An implementation of the RecyclerView ViewHolder that is created specifically with respect to the
+ * item_link.xml file. The aim of this class is to provide each item in the recyclerview to the
+ * adapter, another important purpose of this class is to expose the TextViews in the xml file as
+ * java objects for binding the data.
+ */
 public class LinkViewHolder extends RecyclerView.ViewHolder {
-    private TextView linkNameTV;
-    private TextView linkURLTV;
+    private final TextView linkNameTV;
+    private final TextView linkURLTV;
 
     public LinkViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -18,7 +24,9 @@ public class LinkViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindThisData(Link linkToBind){
+        // set the linkName TextView of the ViewHolder as the name of the `linkToBind` link
         linkNameTV.setText(linkToBind.getName());
+        // set the linkURL TextView of the ViewHolder as the URL of the `linkToBind` link
         linkURLTV.setText(linkToBind.getUrl());
     }
 }

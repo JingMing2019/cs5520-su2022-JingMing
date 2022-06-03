@@ -29,13 +29,17 @@ public class FABActivity extends AppCompatActivity {
     public void finish() {
         Intent data = new Intent();
 
-        String nameString = binding.linkNameID.getText().toString();
-        data.putExtra("nameString", nameString);
+        if (!binding.linkNameInput.getText().toString().equals("") &&
+                !binding.linkURLInput.getText().toString().equals("")) {
+            String nameString = binding.linkNameInput.getText().toString();
+            data.putExtra("nameString", nameString);
 
-        String urlString = binding.linkURLID.getText().toString();
-        data.putExtra("urlString", urlString);
+            String urlString = binding.linkURLInput.getText().toString();
+            data.putExtra("urlString", urlString);
 
-        setResult(RESULT_OK, data);
+            setResult(RESULT_OK, data);
+        }
+
         super.finish();
     }
 }

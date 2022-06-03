@@ -22,10 +22,10 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkURLID" />
+        app:layout_constraintTop_toBottomOf="@+id/linkURLInput" />
 
     <EditText
-        android:id="@+id/linkNameID"
+        android:id="@+id/linkNameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/input_margin"
@@ -35,14 +35,14 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/linkURLID"
+        app:layout_constraintBottom_toTopOf="@+id/linkURLInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread" />
 
     <EditText
-        android:id="@+id/linkURLID"
+        android:id="@+id/linkURLInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/input_margin"
@@ -55,6 +55,6 @@
         app:layout_constraintBottom_toTopOf="@+id/saveLinkID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkNameID" />
+        app:layout_constraintTop_toBottomOf="@+id/linkNameInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,8 @@ public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
     @NonNull
     @Override
     public LinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LinkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_link, null));
+        return new LinkViewHolder(LayoutInflater.from(context).
+                inflate(R.layout.item_link, parent, false));
     }
 
     @Override

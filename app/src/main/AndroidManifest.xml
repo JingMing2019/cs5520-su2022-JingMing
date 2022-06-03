@@ -26,7 +26,7 @@
         <activity android:name=".ClickyActivity" />
         <activity android:name=".LinkCollectorActivity" />
         <activity
-            android:name=".FABActivity"
+            android:name=".FabActivity"
             android:exported="true"/>
     </application>
 

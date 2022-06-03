@@ -63,7 +63,7 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fabLinkCollectorID) {
-            Intent intent = new Intent(this, FABActivity.class);
+            Intent intent = new Intent(this, FabActivity.class);
             startForResult.launch(intent);
         }
     }

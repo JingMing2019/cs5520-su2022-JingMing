@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import edu.neu.madcourse.numad22su_jingming.databinding.ActivityFabBinding;
 
-public class FABActivity extends AppCompatActivity {
+public class FabActivity extends AppCompatActivity {
     private ActivityFabBinding binding;
 
     @Override

@@ -18,6 +18,7 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 2. Press Link Collector button brings up a new activity shown a list of links
 3. Link list is initially empty
 4. Tap floating action button to enter a name and URL of a link
-5. Message shown in a snackbar notifies whether the link is created successfully or not
-6. If created successfully, show the link in the list
-7. Tap link launches the URL in web browser
+5. Press Save Link button store the information to link list, and back to the previous activity
+6. Snackbar shows link added successful if the information is added to link list
+7. UNDO action in snackbar removes the former added link
+9. Tap link launches the URL in web browser

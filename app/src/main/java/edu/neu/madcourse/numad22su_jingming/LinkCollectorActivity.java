@@ -2,8 +2,10 @@ package edu.neu.madcourse.numad22su_jingming;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.result.ActivityResult;
@@ -25,7 +27,6 @@ import java.util.Objects;
 import edu.neu.madcourse.numad22su_jingming.databinding.ActivityLinkCollectorBinding;
 
 public class LinkCollectorActivity extends AppCompatActivity implements View.OnClickListener{
-//    private static final String TAG = "LinkCollectorActivity___";
     private ActivityLinkCollectorBinding binding;
     private RecyclerView linksRecyclerView;
     private List<Link> linkList;

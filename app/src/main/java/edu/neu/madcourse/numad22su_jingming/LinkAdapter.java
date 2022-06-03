@@ -1,8 +1,12 @@
 package edu.neu.madcourse.numad22su_jingming;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +18,7 @@ import java.util.List;
  * collection (arraylist) and the view (recyclerview). This class provides 3 methods that are
  * utilised for binding the data to the view.
  */
-public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
+public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder>{
     private final List<Link> links;
     private final Context context;
 
@@ -42,6 +46,14 @@ public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
     public void onBindViewHolder(@NonNull LinkViewHolder holder, int position) {
         // display the data in the given position
         holder.bindThisData(links.get(position));
+
+        holder.layout.setOnClickListener(v -> {
+            Log.v(links.get(position).getName(), "links_name_on_Click");
+            Toast.makeText(context, links.get(position).getName() + " is clicked", Toast.LENGTH_SHORT).show();
+            String url = links.get(position).getUrl();
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            context.startActivity(browserIntent);
+        });
     }
 
     @Override

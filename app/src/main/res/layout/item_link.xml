@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -8,22 +9,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_margin="@dimen/content_horizontal"
-        android:textSize="18sp"
+        android:layout_marginStart="@dimen/content_horizontal"
+        android:layout_marginTop="@dimen/content_horizontal"
+        android:layout_marginEnd="@dimen/content_horizontal"
+        android:layout_marginBottom="@dimen/content_horizontal"
+        android:minHeight="48dp"
+        android:text="@string/link_name_string"
         android:textColor="@color/black"
-        android:text="@string/link_name_string" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/linkURL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/content_horizontal"
-        android:layout_marginStart="@dimen/content_vertical"
-        android:layout_marginTop="@dimen/content_vertical"
-        android:layout_marginEnd="@dimen/content_vertical"
-        android:layout_marginBottom="@dimen/content_vertical"
+        android:layout_marginStart="@dimen/content_horizontal"
+        android:layout_marginTop="@dimen/content_horizontal"
+        android:layout_marginEnd="@dimen/content_horizontal"
+        android:layout_marginBottom="@dimen/content_horizontal"
         android:layout_toEndOf="@+id/linkName"
+        android:minHeight="48dp"
         android:text="@string/url_string"
         android:textColor="@color/black"
         android:textSize="18sp" />

@@ -1,6 +1,7 @@
 package edu.neu.madcourse.numad22su_jingming;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LinkViewHolder extends RecyclerView.ViewHolder {
     private final TextView linkNameTV;
     private final TextView linkURLTV;
+    RelativeLayout layout;
 
     public LinkViewHolder(@NonNull View itemView) {
         super(itemView);
 
         this.linkNameTV = itemView.findViewById(R.id.linkName);
         this.linkURLTV = itemView.findViewById(R.id.linkURL);
+        this.layout = itemView.findViewById((R.id.relativeLayout));
     }
 
     public void bindThisData(Link linkToBind){

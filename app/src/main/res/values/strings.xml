@@ -20,4 +20,6 @@
     <string name="url_string">URL</string>
     <string name="link_name_string">Name</string>
     <string name="link_added_to_list">Link Added To List</string>
+    <string name="link_remove">Link removed</string>
+    <string name="undo_add_link">UNDO</string>
 </resources>

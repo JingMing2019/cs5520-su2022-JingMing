@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 
 import androidx.activity.result.ActivityResult;
@@ -21,12 +20,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import edu.neu.madcourse.numad22su_jingming.databinding.ActivityLinkCollectorBinding;
 
 public class LinkCollectorActivity extends AppCompatActivity implements View.OnClickListener{
 //    private static final String TAG = "LinkCollectorActivity___";
-
     private ActivityLinkCollectorBinding binding;
     private RecyclerView linksRecyclerView;
     private List<Link> linkList;
@@ -50,6 +49,17 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
         linksRecyclerView.setAdapter(new LinkAdapter(linkList, this));
     }
 
+    View.OnClickListener undoOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            linkList.remove(linkList.size() - 1);
+            Objects.requireNonNull(linksRecyclerView.getAdapter()).notifyItemRemoved(linkList.size());
+            Snackbar.make(findViewById(R.id.coordinateLayout),
+                            R.string.link_remove, Snackbar.LENGTH_LONG).show();
+        }
+    };
+
+
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -63,7 +73,9 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
 //                            Log.v(linkList.toString(), "linkList_startForResult");
 
                             // when link is successfully added to the list, show the snackbar
-                            Snackbar.make(findViewById(R.id.coordinateLayout), R.string.link_added_to_list, Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(findViewById(R.id.coordinateLayout),
+                                    R.string.link_added_to_list, Snackbar.LENGTH_LONG)
+                                    .setAction(R.string.undo_add_link, undoOnClickListener).show();
                         }
                     }
                 }
@@ -79,6 +91,8 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    // Override onRestore and onSave method of InstanceState helps save data. The `linkList` will be
+    // saved and restored when users rotate the screen.
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

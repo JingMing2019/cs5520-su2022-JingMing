@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class Link extends ArrayList<Parcelable> implements Parcelable {
     private final String name;
@@ -58,10 +57,4 @@ public class Link extends ArrayList<Parcelable> implements Parcelable {
     public String toString() {
         return "Name: " + this.name + " URL: " + this.url;
     }
-
-//    @NonNull
-//    @Override
-//    public Stream<Parcelable> stream() {
-//        return super.stream();
-//    }
 }

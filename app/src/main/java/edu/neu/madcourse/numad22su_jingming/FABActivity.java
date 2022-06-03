@@ -22,15 +22,9 @@ public class FABActivity extends AppCompatActivity {
     }
 
     public void SaveLink(View view){
-        finish();
-    }
-
-    @Override
-    public void finish() {
-        Intent data = new Intent();
-
         if (!binding.linkNameInput.getText().toString().equals("") &&
                 !binding.linkURLInput.getText().toString().equals("")) {
+            Intent data = new Intent();
             String nameString = binding.linkNameInput.getText().toString();
             data.putExtra("nameString", nameString);
 
@@ -39,7 +33,11 @@ public class FABActivity extends AppCompatActivity {
 
             setResult(RESULT_OK, data);
         }
+        finish();
+    }
 
+    @Override
+    public void finish() {
         super.finish();
     }
 }

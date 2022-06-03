@@ -48,26 +48,21 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        if (data == null) {
-                            return;
+                        if (data != null) {
+                            String nameString = data.getExtras().getString("nameString");
+                            String urlString = data.getExtras().getString("urlString");
+
+                            linkList.add(new Link(nameString, urlString));
+                            // when link is successfully added to the list, show the snackbar
+                            Snackbar.make(findViewById(R.id.coordinateLayout), R.string.link_added_to_list, Snackbar.LENGTH_LONG).show();
                         }
-
-                        String nameString = data.getExtras().getString("nameString");
-                        String urlString = data.getExtras().getString("urlString");
-
-                        linkList.add(new Link(nameString, urlString));
-
-//                        binding.linkNameTV.setText(nameString);
-//                        binding.linkURLTV.setText(urlString);
-
-
                     }
                 }
             });
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fab_link_collector_ID) {
+        if (v.getId() == R.id.fabLinkCollectorID) {
             Intent intent = new Intent(this, FABActivity.class);
             startForResult.launch(intent);
         }

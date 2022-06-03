@@ -19,4 +19,5 @@
     <string name="save_link_string">Save Link</string>
     <string name="url_string">URL</string>
     <string name="link_name_string">Name</string>
+    <string name="link_added_to_list">Link Added To List</string>
 </resources>

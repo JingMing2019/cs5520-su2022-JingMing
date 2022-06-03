@@ -3,12 +3,15 @@ package edu.neu.madcourse.numad22su_jingming;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +25,8 @@ import java.util.List;
 import edu.neu.madcourse.numad22su_jingming.databinding.ActivityLinkCollectorBinding;
 
 public class LinkCollectorActivity extends AppCompatActivity implements View.OnClickListener{
+//    private static final String TAG = "LinkCollectorActivity___";
+
     private ActivityLinkCollectorBinding binding;
     private RecyclerView linksRecyclerView;
     private List<Link> linkList;
@@ -34,11 +39,15 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
         setContentView(view);
 
         linkList = new ArrayList<>();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         linksRecyclerView = findViewById(R.id.linkRecyclerView);
         linksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         linksRecyclerView.setAdapter(new LinkAdapter(linkList, this));
-
     }
 
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
@@ -49,10 +58,10 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            String nameString = data.getExtras().getString("nameString");
-                            String urlString = data.getExtras().getString("urlString");
+                            // Add the result (name, url) from `data` intent to linkList
+                            linkList.add(data.getParcelableExtra("link"));
+//                            Log.v(linkList.toString(), "linkList_startForResult");
 
-                            linkList.add(new Link(nameString, urlString));
                             // when link is successfully added to the list, show the snackbar
                             Snackbar.make(findViewById(R.id.coordinateLayout), R.string.link_added_to_list, Snackbar.LENGTH_LONG).show();
                         }
@@ -62,9 +71,25 @@ public class LinkCollectorActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
+        // click fab button launches a new activity
         if (v.getId() == R.id.fabLinkCollectorID) {
             Intent intent = new Intent(this, FabActivity.class);
+            // wait for the result from FabActivity
             startForResult.launch(intent);
         }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        linkList = savedInstanceState.getParcelableArrayList("linkList");
+//        Log.v(linkList.toString(), "linkList_onRestoreInstanceState");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("linkList", (ArrayList<? extends Parcelable>) linkList);
+//        Log.v(linkList.toString(), "linkList_onSaveInstanceState");
     }
 }

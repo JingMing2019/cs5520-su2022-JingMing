@@ -1,5 +1,6 @@
 package edu.neu.madcourse.numad22su_jingming;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +22,9 @@ import java.util.List;
 public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder>{
     private final List<Link> links;
     private final Context context;
+    private final static String HTTP = "http://";
+    private final static String HTTPS = "https://";
+    private final static String WWW = "www.";
 
     /**
      * Creates a LinkAdapter with the provided arraylist of Person objects.
@@ -44,15 +48,28 @@ public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull LinkViewHolder holder, int position) {
-        // display the data in the given position
+        // display the item in the given position
         holder.bindThisData(links.get(position));
 
+        // make item listen to click action
         holder.layout.setOnClickListener(v -> {
-            Log.v(links.get(position).getName(), "links_name_on_Click");
-            Toast.makeText(context, links.get(position).getName() + " is clicked", Toast.LENGTH_SHORT).show();
+            // when item is clicked, toast shows which item is clicked
+            Toast.makeText(context, links.get(position).getName() + " is clicked",
+                    Toast.LENGTH_SHORT).show();
+//            Log.v(links.get(position).getName(), "links_name_on_Click");
+
             String url = links.get(position).getUrl();
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            context.startActivity(browserIntent);
+            // make sure url in the format of "http://www.example.com" or "https://www.example.com"
+            if (!url.startsWith(WWW)) url = WWW + url;
+            if(!url.startsWith(HTTP) && !url.startsWith(HTTPS)) url = HTTP + url;
+
+            // open the url in a web browser
+            try{
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                context.startActivity(browserIntent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(context, "Activity not registered", Toast.LENGTH_LONG).show();
+            }
         });
     }
 

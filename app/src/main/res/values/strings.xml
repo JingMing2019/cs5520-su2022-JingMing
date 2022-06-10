@@ -22,4 +22,5 @@
     <string name="link_added_to_list">Link Added To List</string>
     <string name="link_remove">Link removed</string>
     <string name="undo_add_link">UNDO</string>
+    <string name="find_primes_string">Find Primes</string>
 </resources>

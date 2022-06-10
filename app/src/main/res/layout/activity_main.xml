@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/about_me_string"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/helloID"
+        app:layout_constraintBottom_toTopOf="@+id/clicky_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,10 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_string"
-        app:layout_constraintBottom_toTopOf="@+id/clicky_ID"
+        app:layout_constraintBottom_toTopOf="@+id/findPrimesMainID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_me_ID" />
+        app:layout_constraintTop_toBottomOf="@+id/clicky_ID" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
@@ -49,11 +49,11 @@
         android:layout_height="wrap_content"
         android:text="@string/clicky_string"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
         app:layout_constraintEnd_toStartOf="@+id/link_collector_ID"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/helloID" />
+        app:layout_constraintTop_toBottomOf="@id/about_me_ID" />
 
     <Button
         android:id="@+id/link_collector_ID"
@@ -61,9 +61,21 @@
         android:layout_height="wrap_content"
         android:text="@string/link_collector_string"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/clicky_ID"
-        app:layout_constraintTop_toBottomOf="@id/helloID" />
+        app:layout_constraintTop_toBottomOf="@id/about_me_ID" />
+
+    <Button
+        android:id="@+id/findPrimesMainID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_primes_string"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier2"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

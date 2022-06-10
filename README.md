@@ -28,6 +28,6 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 2. New activity has 2 buttons: Find Primes and Terminate
 3. Find Primes button starts a worker thread that searches for prime numbers (check from 2)
 4. Terminate button stops and finishes the search, next search start from 2
-5. While searching, displays "The latest prime found: []" and "Number [] is being checked"
+5. While searching, displays "Latest Prime Found: []" and "[] is being checked"
 6. There is a checkbox "Pacifier Switch" for user to check and uncheck. Checkbox is used to test if the UI thread is blocked or not
 7. While searching, press back button brings up a dialog to inform user whether he/she wants to terminate the search or not

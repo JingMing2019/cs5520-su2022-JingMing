@@ -23,4 +23,8 @@
     <string name="link_remove">Link removed</string>
     <string name="undo_add_link">UNDO</string>
     <string name="find_primes_string">Find Primes</string>
+    <string name="terminate_string">Terminate</string>
+    <string name="latest_found_prime_string">Latest found prime number</string>
+    <string name="is_being_checked_string">is being checked</string>
+    <string name="pacifier_switch_string">Pacifier Switch</string>
 </resources>

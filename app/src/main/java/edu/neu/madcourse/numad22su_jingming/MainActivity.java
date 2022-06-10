@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         });
 
+        Button findPrimesButton = findViewById(R.id.findPrimesMainID);
+        findPrimesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FindPrimesActivity.class);
+            startActivity(intent);
+        });
+
         // show text "hello world"
         TextView textView = findViewById(R.id.helloID);
         textView.setText(R.string.hello_world_string);

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FindPrimesActivity">
+
+    <Button
+        android:id="@+id/findPrimesID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_primes_string"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/terminateID"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID"/>
+
+    <Button
+        android:id="@+id/terminateID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terminate_string"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/findPrimesID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID" />
+
+    <TextView
+        android:id="@+id/foundedPrimeNumID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/latest_found_prime_string"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPrimesID"
+        app:layout_constraintBottom_toTopOf="@+id/checkedNumID"/>
+
+    <TextView
+        android:id="@+id/checkedNumID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_being_checked_string"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foundedPrimeNumID"
+        app:layout_constraintBottom_toTopOf="@+id/pacifierSwitchID"/>
+
+    <CheckBox
+        android:id="@+id/pacifierSwitchID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pacifier_switch_string"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkedNumID"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

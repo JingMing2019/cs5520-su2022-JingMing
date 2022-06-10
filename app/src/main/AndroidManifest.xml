@@ -14,6 +14,9 @@
         android:theme="@style/Theme.NUMAD22Su_JingMing"
         tools:targetApi="31">
         <activity
+            android:name=".FindPrimesActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -29,22 +32,24 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="http" />
+
+                <data android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="https"/>
+
+                <data android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
             android:name=".FabActivity"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

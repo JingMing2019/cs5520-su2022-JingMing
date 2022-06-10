@@ -10,23 +10,25 @@
         android:id="@+id/findPrimesID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="findPrimes"
         android:text="@string/find_primes_string"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID"
         app:layout_constraintEnd_toStartOf="@+id/terminateID"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/terminateID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="terminate"
         android:text="@string/terminate_string"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/findPrimesID"
+        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/foundedPrimeNumID" />
+        app:layout_constraintStart_toEndOf="@+id/findPrimesID"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/foundedPrimeNumID"
@@ -42,7 +44,7 @@
         android:id="@+id/checkedNumID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/is_being_checked_string"
+        android:text="@string/current_check_num_string"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foundedPrimeNumID"

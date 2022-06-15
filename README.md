@@ -31,3 +31,12 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 5. While searching, displays "Latest Prime Found: []" and "[] is being checked"
 6. There is a checkbox "Pacifier Switch" for user to check and uncheck. Checkbox is used to test if the UI thread is blocked or not
 7. While searching, press back button brings up a dialog to inform user whether he/she wants to terminate the search or not
+
+## Week6
+1. Press Location button brings up a new activity
+2. Display the current latitude, longitude, total travel distance
+3. Update these 3 information when location changes
+4. Information is persist through screen rotation
+5. Press Fine Location button displays the location with FINE precision
+6. Press Coarse Location button displays the location with COARSE precision
+7. Press Reset Distance button resets the total travel distance to 0 and restarts recording

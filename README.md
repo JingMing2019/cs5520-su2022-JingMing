@@ -34,9 +34,11 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 
 ## Week6
 1. Press Location button brings up a new activity
-2. Display the current latitude, longitude, total travel distance
-3. Update these 3 information when location changes
-4. Information is persist through screen rotation
-5. Press Fine Location button displays the location with FINE precision
-6. Press Coarse Location button displays the location with COARSE precision
-7. Press Reset Distance button resets the total travel distance to 0 and restarts recording
+2. Press Share Location button brings up a dialog asking for runtime permission
+3. The dialog includes 2 options: precise or approximate location
+4. Choose precise display the FINE_LOCATION
+5. Choose approximate display the COARSE_LOCATION
+6. Display the current latitude, longitude, total travel distance
+7. Update these 3 information when location changes
+8. Total travel distance is persist in screen rotation 
+9. Press Reset Distance button resets the total travel distance to 0 and restarts recording

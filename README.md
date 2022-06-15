@@ -40,5 +40,6 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 5. Choose approximate display the COARSE_LOCATION
 6. Display the current latitude, longitude, total travel distance
 7. Update these 3 information when location changes
-8. Total travel distance is persist in screen rotation 
-9. Press Reset Distance button resets the total travel distance to 0 and restarts recording
+8. Total travel distance is persist in screen rotation
+9. Press Change Precision button allows user to choose mode: High accuracy, Battery saving, Display only
+10. Press Reset Distance button resets the total travel distance to 0 and restarts recording

@@ -35,11 +35,14 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         });
 
+        // click findPrimesMainID button shows a new activity which searching primes from 2 to infinity
         Button findPrimesButton = findViewById(R.id.findPrimesMainID);
         findPrimesButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, FindPrimesActivity.class);
             startActivity(intent);
         });
+
+
 
         // show text "hello world"
         TextView textView = findViewById(R.id.helloID);

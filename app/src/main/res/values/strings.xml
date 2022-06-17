@@ -27,4 +27,5 @@
     <string name="latest_found_prime_string">Latest found prime number:\u0020</string>
     <string name="current_check_num_string">Current check number:\u0020</string>
     <string name="pacifier_switch_string">Pacifier Switch</string>
+    <string name="location_string">Location</string>
 </resources>

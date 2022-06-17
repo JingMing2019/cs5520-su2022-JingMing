@@ -42,7 +42,11 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         });
 
-
+        Button locationButton = findViewById(R.id.locationID);
+        locationButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+            startActivity(intent);
+        });
 
         // show text "hello world"
         TextView textView = findViewById(R.id.helloID);

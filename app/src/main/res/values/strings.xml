@@ -28,4 +28,12 @@
     <string name="current_check_num_string">Current check number:\u0020</string>
     <string name="pacifier_switch_string">Pacifier Switch</string>
     <string name="location_string">Location</string>
+    <string name="location_description_string">Current Location in (Latitude, Longitude)</string>
+    <string name="latitude_string">Latitude</string>
+    <string name="longitude_string">Longitude</string>
+    <string name="total_travel_distance_description_string">Total Travel Distance</string>
+    <string name="distance_string">Distance</string>
+    <string name="share_location_string">Share Location</string>
+    <string name="change_precision_string">Change Precision</string>
+    <string name="reset_distance_string">Reset Distance</string>
 </resources>

@@ -212,13 +212,15 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putFloat("total_distance", totalDistance);
-        outState.putDouble("last_distance_latitude", lastLocationLatitude);
-        outState.putDouble("last_distance_longitude", lastLocationLongitude);
-        outState.putInt("priority", priority);
-        outState.putBoolean("requestingLocationUpdates", requestingLocationUpdates);
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (requestingLocationUpdates) {
+            outState.putFloat("total_distance", totalDistance);
+            outState.putDouble("last_distance_latitude", lastLocationLatitude);
+            outState.putDouble("last_distance_longitude", lastLocationLongitude);
+            outState.putInt("priority", priority);
+            outState.putBoolean("requestingLocationUpdates", requestingLocationUpdates);
+        }
     }
 
     @Override

@@ -36,7 +36,7 @@ public class LocationActivity extends AppCompatActivity {
     private static final String TAG = "LocationActivity";
     private static final int REQUEST_CHECK_SETTINGS = 100;
     private static final long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private static final long FASTEST_INTERVAL = 5 * 1000; /* 2 sec */
+    private static final long FASTEST_INTERVAL = 2 * 1000; /* 2 sec */
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private int priority;
     private FusedLocationProviderClient fusedLocationClient;
@@ -45,6 +45,7 @@ public class LocationActivity extends AppCompatActivity {
     private TextView latitudeTV;
     private TextView longitudeTV;
     private TextView totalDistanceTV;
+    private TextView locationAccuracyTV;
     private Double lastLocationLatitude;
     private Double lastLocationLongitude;
     private float totalDistance;
@@ -58,6 +59,7 @@ public class LocationActivity extends AppCompatActivity {
         latitudeTV = findViewById(R.id.latitudeTV);
         longitudeTV = findViewById(R.id.longitudeTV);
         totalDistanceTV = findViewById(R.id.totalDistanceTV);
+        locationAccuracyTV = findViewById(R.id.locationAccuracyTV);
 
         lastLocationLatitude = null;
         lastLocationLongitude = null;
@@ -75,15 +77,16 @@ public class LocationActivity extends AppCompatActivity {
                     totalDistance += results[0];
                     Log.v(String.valueOf(results[0]), "results");
                     Log.v(String.valueOf(totalDistance), "totalDistance");
-                    totalDistanceTV.setText(String.valueOf(totalDistance));
+                    totalDistanceTV.setText(String.format("Distance: %s", totalDistance));
                 }
                 if (location != null) {
                     lastLocationLatitude = location.getLatitude();
                     lastLocationLongitude = location.getLongitude();
                     Log.v(String.valueOf(lastLocationLatitude), "lastLocationLatitude");
                     Log.v(String.valueOf(lastLocationLongitude), "lastLocationLongitude");
-                    latitudeTV.setText(String.valueOf(lastLocationLatitude));
-                    longitudeTV.setText(String.valueOf(lastLocationLongitude));
+                    latitudeTV.setText(String.format("Latitude: %s", lastLocationLatitude));
+                    longitudeTV.setText(String.format("Longitude: %s", lastLocationLongitude));
+                    locationAccuracyTV.setText(String.format("Accuracy: %s", location.getAccuracy()));
                 }
             }
         };
@@ -93,7 +96,6 @@ public class LocationActivity extends AppCompatActivity {
         Button highAccuracyBtN = findViewById(R.id.highAccuracyBtN);
         highAccuracyBtN.setOnClickListener(v -> {
             Log.v(TAG, "highAccuracy Pressed");
-//            stopLocationUpdates();
             priority = Priority.PRIORITY_HIGH_ACCURACY;
             startLocationUpdates();
         });
@@ -101,7 +103,6 @@ public class LocationActivity extends AppCompatActivity {
         Button balancedPowerAccuracyBtN = findViewById(R.id.balancedPowerAccuracyBtN);
         balancedPowerAccuracyBtN.setOnClickListener(v -> {
             Log.v(TAG, "balanced Pressed");
-//            stopLocationUpdates();
             priority = Priority.PRIORITY_BALANCED_POWER_ACCURACY;
             startLocationUpdates();
         });
@@ -109,7 +110,6 @@ public class LocationActivity extends AppCompatActivity {
         Button lowPowerBtN = findViewById(R.id.lowPowerBtN);
         lowPowerBtN.setOnClickListener(v -> {
             Log.v(TAG, "low Power Pressed");
-//            stopLocationUpdates();
             priority = Priority.PRIORITY_LOW_POWER;
             startLocationUpdates();
         });
@@ -117,7 +117,6 @@ public class LocationActivity extends AppCompatActivity {
         Button noPowerBtN = findViewById(R.id.noPowerBtN);
         noPowerBtN.setOnClickListener(v -> {
             Log.v(TAG, "no power Pressed");
-//            stopLocationUpdates();
             priority = Priority.PRIORITY_PASSIVE;
             startLocationUpdates();
         });
@@ -125,7 +124,7 @@ public class LocationActivity extends AppCompatActivity {
         Button resetDistanceBtN = findViewById(R.id.resetDistanceBtN);
         resetDistanceBtN.setOnClickListener(v -> {
             totalDistance = 0;
-            totalDistanceTV.setText(String.valueOf(totalDistance));
+            totalDistanceTV.setText(String.format("Distance: %s", totalDistance));
         });
     }
 
@@ -199,7 +198,7 @@ public class LocationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        totalDistanceTV.setText(String.valueOf(totalDistance));
+        totalDistanceTV.setText(String.format("Distance: %s", totalDistance));
         Log.w(TAG, "ZS: onResume!");
         if (requestingLocationUpdates) {
             startLocationUpdates();

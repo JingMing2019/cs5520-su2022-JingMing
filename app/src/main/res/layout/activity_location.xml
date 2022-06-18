@@ -4,95 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/locationDescriptionTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/location_description_string"
-        app:layout_constraintBottom_toTopOf="@+id/latitudeTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lowPowerBtN" />
-
-    <TextView
-        android:id="@+id/latitudeTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/latitude_string"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/totalDistanceTV"
-        app:layout_constraintEnd_toStartOf="@id/guideline1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/highAccuracyBtN" />
-
-    <TextView
-        android:id="@+id/longitudeTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/longitude_string"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/totalDistanceTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/balancedPowerAccuracyBtN" />
-
-    <TextView
-        android:id="@+id/totalDistanceDescriptionTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/total_travel_distance_description_string"
-        app:layout_constraintBottom_toTopOf="@+id/totalDistanceTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/latitudeTV" />
-
-    <TextView
-        android:id="@+id/totalDistanceTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/distance_string"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/resetDistanceBtN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalDistanceDescriptionTV" />
-
-    <!--    <Button-->
-    <!--        android:id="@+id/shareLocationBtN"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/share_location_string"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/changePrecisionBtN"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/change_precision_string"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/resetDistanceBtN"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />-->
-
-    <Button
-        android:id="@+id/resetDistanceBtN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reset_distance_string"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />
-
     <Button
         android:id="@+id/highAccuracyBtN"
         android:layout_width="wrap_content"
@@ -118,26 +29,106 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/low_power_string"
-        app:layout_constraintBottom_toTopOf="@+id/latitudeTV"
+        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
         app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/highAccuracyBtN" />
 
     <Button
         android:id="@+id/noPowerBtN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_power_string"
-        app:layout_constraintBottom_toTopOf="@+id/longitudeTV"
+        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/balancedPowerAccuracyBtN" />
+
+    <TextView
+        android:id="@+id/locationDescriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/location_description_string"
+        app:layout_constraintBottom_toTopOf="@+id/latitudeTV"
+        app:layout_constraintEnd_toStartOf="@+id/locationAccuracyTV"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lowPowerBtN" />
+
+    <TextView
+        android:id="@+id/locationAccuracyTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location_accuracy_string"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/longitudeTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/locationDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@id/noPowerBtN" />
+
+    <TextView
+        android:id="@+id/latitudeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/latitude_string"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/totalDistanceDescriptionTV"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locationDescriptionTV" />
+
+    <TextView
+        android:id="@+id/longitudeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/longitude_string"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/totalDistanceDescriptionTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/locationDescriptionTV" />
+
+    <TextView
+        android:id="@+id/totalDistanceDescriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_travel_distance_description_string"
+        app:layout_constraintBottom_toTopOf="@+id/totalDistanceTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/latitudeTV" />
+
+    <TextView
+        android:id="@+id/totalDistanceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distance_string"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/resetDistanceBtN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalDistanceDescriptionTV" />
+
+    <Button
+        android:id="@+id/resetDistanceBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_distance_string"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent= "0.5" />
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

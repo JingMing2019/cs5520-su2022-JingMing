@@ -12,7 +12,7 @@
         app:layout_constraintBottom_toTopOf="@+id/latitudeTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shareLocationBtN" />
+        app:layout_constraintTop_toBottomOf="@id/lowPowerBtN" />
 
     <TextView
         android:id="@+id/latitudeTV"
@@ -21,10 +21,10 @@
         android:text="@string/latitude_string"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/totalDistanceTV"
-        app:layout_constraintEnd_toStartOf="@+id/longitudeTV"
+        app:layout_constraintBottom_toTopOf="@id/totalDistanceTV"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shareLocationBtN" />
+        app:layout_constraintTop_toBottomOf="@id/highAccuracyBtN" />
 
     <TextView
         android:id="@+id/longitudeTV"
@@ -33,10 +33,10 @@
         android:text="@string/longitude_string"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/totalDistanceTV"
+        app:layout_constraintBottom_toTopOf="@id/totalDistanceTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/latitudeTV"
-        app:layout_constraintTop_toBottomOf="@+id/shareLocationBtN" />
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toBottomOf="@id/balancedPowerAccuracyBtN" />
 
     <TextView
         android:id="@+id/totalDistanceDescriptionTV"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@+id/totalDistanceTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latitudeTV" />
+        app:layout_constraintTop_toBottomOf="@id/latitudeTV" />
 
     <TextView
         android:id="@+id/totalDistanceTV"
@@ -60,27 +60,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalDistanceDescriptionTV" />
 
-    <Button
-        android:id="@+id/shareLocationBtN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/share_location_string"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <Button-->
+    <!--        android:id="@+id/shareLocationBtN"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/share_location_string"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/changePrecisionBtN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_precision_string"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/resetDistanceBtN"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />
+    <!--    <Button-->
+    <!--        android:id="@+id/changePrecisionBtN"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/change_precision_string"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/resetDistanceBtN"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />-->
 
     <Button
         android:id="@+id/resetDistanceBtN"
@@ -90,7 +90,54 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/changePrecisionBtN"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalDistanceTV" />
+
+    <Button
+        android:id="@+id/highAccuracyBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high_accuracy_string"
+        app:layout_constraintBottom_toTopOf="@id/lowPowerBtN"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/balancedPowerAccuracyBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balanced_power_accuracy_string"
+        app:layout_constraintBottom_toTopOf="@id/noPowerBtN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/lowPowerBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/low_power_string"
+        app:layout_constraintBottom_toTopOf="@+id/latitudeTV"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/noPowerBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_power_string"
+        app:layout_constraintBottom_toTopOf="@+id/longitudeTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5f" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

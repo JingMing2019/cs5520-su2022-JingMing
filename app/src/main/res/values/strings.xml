@@ -33,7 +33,11 @@
     <string name="longitude_string">Longitude</string>
     <string name="total_travel_distance_description_string">Total Travel Distance</string>
     <string name="distance_string">Distance</string>
-    <string name="share_location_string">Share Location</string>
+    <string name="share_location_string">Show My Location</string>
     <string name="change_precision_string">Change Precision</string>
     <string name="reset_distance_string">Reset Distance</string>
+    <string name="high_accuracy_string">High Accuracy</string>
+    <string name="balanced_power_accuracy_string">Balanced Power</string>
+    <string name="low_power_string">Low Power</string>
+    <string name="no_power_string">No Power</string>
 </resources>

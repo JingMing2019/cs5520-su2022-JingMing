@@ -39,6 +39,8 @@
     <string name="high_accuracy_string">Highest Accuracy</string>
     <string name="balanced_power_accuracy_string">Balanced Accuracy</string>
     <string name="low_power_string">Lowest Accuracy</string>
-    <string name="no_power_string">Passive Location</string>
+    <string name="no_power_string">Passive Request</string>
     <string name="location_accuracy_string">Accuracy</string>
+    <string name="accuracy_selected_string">Accuracy Selected:\u0020</string>
+    <string name="default_accuracy_selected_string">Please select one accuracy</string>
 </resources>

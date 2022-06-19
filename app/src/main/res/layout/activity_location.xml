@@ -6,7 +6,7 @@
 
     <Button
         android:id="@+id/highAccuracyBtN"
-        android:layout_width="wrap_content"
+        android:layout_width="156sp"
         android:layout_height="wrap_content"
         android:text="@string/high_accuracy_string"
         app:layout_constraintBottom_toTopOf="@id/lowPowerBtN"
@@ -16,7 +16,7 @@
 
     <Button
         android:id="@+id/balancedPowerAccuracyBtN"
-        android:layout_width="wrap_content"
+        android:layout_width="156sp"
         android:layout_height="wrap_content"
         android:text="@string/balanced_power_accuracy_string"
         app:layout_constraintBottom_toTopOf="@id/noPowerBtN"
@@ -26,23 +26,46 @@
 
     <Button
         android:id="@+id/lowPowerBtN"
-        android:layout_width="wrap_content"
+        android:layout_width="156sp"
         android:layout_height="wrap_content"
         android:text="@string/low_power_string"
-        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
+        app:layout_constraintBottom_toTopOf="@+id/accuracySelectedDescriptionTV"
         app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/highAccuracyBtN" />
 
     <Button
         android:id="@+id/noPowerBtN"
-        android:layout_width="wrap_content"
+        android:layout_width="156sp"
         android:layout_height="wrap_content"
         android:text="@string/no_power_string"
-        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
+        app:layout_constraintBottom_toTopOf="@+id/accuracySelectedTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline1"
         app:layout_constraintTop_toBottomOf="@id/balancedPowerAccuracyBtN" />
+
+    <TextView
+        android:id="@+id/accuracySelectedDescriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/accuracy_selected_string"
+        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
+        app:layout_constraintEnd_toStartOf="@+id/accuracySelectedTV"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lowPowerBtN" />
+
+    <TextView
+        android:id="@+id/accuracySelectedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/default_accuracy_selected_string"
+        app:layout_constraintBottom_toTopOf="@+id/locationDescriptionTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/accuracySelectedDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@id/noPowerBtN"/>
 
     <TextView
         android:id="@+id/locationDescriptionTV"
@@ -54,7 +77,7 @@
         app:layout_constraintEnd_toStartOf="@+id/locationAccuracyTV"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lowPowerBtN" />
+        app:layout_constraintTop_toBottomOf="@+id/accuracySelectedDescriptionTV" />
 
     <TextView
         android:id="@+id/locationAccuracyTV"
@@ -65,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@id/longitudeTV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/locationDescriptionTV"
-        app:layout_constraintTop_toBottomOf="@id/noPowerBtN" />
+        app:layout_constraintTop_toBottomOf="@+id/accuracySelectedTV" />
 
     <TextView
         android:id="@+id/latitudeTV"

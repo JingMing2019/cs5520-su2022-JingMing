@@ -31,13 +31,13 @@ import com.google.android.gms.location.Priority;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.Task;
 
-
 public class LocationActivity extends AppCompatActivity {
     private static final String TAG = "LocationActivity";
-    private static final int REQUEST_CHECK_SETTINGS = 100;
+    private static final int REQUEST_LOCATION_PERMISSION = 99;
+    private static final int REQUEST_COARSE_LOCATION_PERMISSION = 100;
+    private static final int REQUEST_CHECK_SETTINGS = 101;
     private static final long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private static final long FASTEST_INTERVAL = 2 * 1000; /* 2 sec */
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private int priority;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationRequest locationRequest;
@@ -46,6 +46,8 @@ public class LocationActivity extends AppCompatActivity {
     private TextView longitudeTV;
     private TextView totalDistanceTV;
     private TextView locationAccuracyTV;
+    private TextView accuracySelectedTV;
+    private String accuracySelected;
     private Double lastLocationLatitude;
     private Double lastLocationLongitude;
     private float totalDistance;
@@ -60,6 +62,7 @@ public class LocationActivity extends AppCompatActivity {
         longitudeTV = findViewById(R.id.longitudeTV);
         totalDistanceTV = findViewById(R.id.totalDistanceTV);
         locationAccuracyTV = findViewById(R.id.locationAccuracyTV);
+        accuracySelectedTV = findViewById(R.id.accuracySelectedTV);
 
         lastLocationLatitude = null;
         lastLocationLongitude = null;
@@ -84,8 +87,8 @@ public class LocationActivity extends AppCompatActivity {
                     lastLocationLongitude = location.getLongitude();
                     Log.v(String.valueOf(lastLocationLatitude), "lastLocationLatitude");
                     Log.v(String.valueOf(lastLocationLongitude), "lastLocationLongitude");
-                    latitudeTV.setText(String.format("Latitude: %s", lastLocationLatitude));
-                    longitudeTV.setText(String.format("Longitude: %s", lastLocationLongitude));
+                    latitudeTV.setText(String.valueOf(lastLocationLatitude));
+                    longitudeTV.setText(String.valueOf(lastLocationLongitude));
                     locationAccuracyTV.setText(String.format("Accuracy: %s", location.getAccuracy()));
                 }
             }
@@ -96,6 +99,8 @@ public class LocationActivity extends AppCompatActivity {
         Button highAccuracyBtN = findViewById(R.id.highAccuracyBtN);
         highAccuracyBtN.setOnClickListener(v -> {
             Log.v(TAG, "highAccuracy Pressed");
+            accuracySelected = String.valueOf(highAccuracyBtN.getText());
+            accuracySelectedTV.setText(accuracySelected);
             priority = Priority.PRIORITY_HIGH_ACCURACY;
             startLocationUpdates();
         });
@@ -103,6 +108,8 @@ public class LocationActivity extends AppCompatActivity {
         Button balancedPowerAccuracyBtN = findViewById(R.id.balancedPowerAccuracyBtN);
         balancedPowerAccuracyBtN.setOnClickListener(v -> {
             Log.v(TAG, "balanced Pressed");
+            accuracySelected = String.valueOf(balancedPowerAccuracyBtN.getText());
+            accuracySelectedTV.setText(accuracySelected);
             priority = Priority.PRIORITY_BALANCED_POWER_ACCURACY;
             startLocationUpdates();
         });
@@ -110,6 +117,8 @@ public class LocationActivity extends AppCompatActivity {
         Button lowPowerBtN = findViewById(R.id.lowPowerBtN);
         lowPowerBtN.setOnClickListener(v -> {
             Log.v(TAG, "low Power Pressed");
+            accuracySelected = String.valueOf(lowPowerBtN.getText());
+            accuracySelectedTV.setText(accuracySelected);
             priority = Priority.PRIORITY_LOW_POWER;
             startLocationUpdates();
         });
@@ -117,6 +126,8 @@ public class LocationActivity extends AppCompatActivity {
         Button noPowerBtN = findViewById(R.id.noPowerBtN);
         noPowerBtN.setOnClickListener(v -> {
             Log.v(TAG, "no power Pressed");
+            accuracySelected = String.valueOf(noPowerBtN.getText());
+            accuracySelectedTV.setText(accuracySelected);
             priority = Priority.PRIORITY_PASSIVE;
             startLocationUpdates();
         });
@@ -128,13 +139,16 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
-    private void startLocationUpdates() {
-        requestingLocationUpdates = true;
-        // create the location request to start receiving updates
+    private void createLocationRequests() {
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL);
         locationRequest.setFastestInterval(FASTEST_INTERVAL);
         locationRequest.setPriority(priority);
+    }
+
+    private void startLocationUpdates() {
+        // create the location request to start receiving updates
+        createLocationRequests();
 
         // get the current location settings of a user's device
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -146,27 +160,19 @@ public class LocationActivity extends AppCompatActivity {
         Log.w(TAG, "ZS: task scheduled.");
 
         task.addOnSuccessListener(this, locationSettingsResponse -> {
-            // All location settings are satisfied. The client can initialize
-            // location requests here.
+            // All location settings are satisfied.
+            // The client can initialize location requests here.
             Log.w(TAG, "ZS: task success.");
-            if (checkLocationPermission()) {
-                Log.w(TAG, "ZS: checkLocationPermission passed.");
-                fusedLocationClient.requestLocationUpdates(
-                        locationRequest,
-                        locationCallback,
-                        Looper.getMainLooper());
-            } else {
-                Log.w(TAG, "ZS: checkLocationPermission failed.");
-                askLocationPermission();
-            }
+            requestingLocationUpdates = true;
+            initializeRequestLocationUpdates();
         });
 
         task.addOnFailureListener(this, e -> {
+            requestingLocationUpdates = false;
             if (e instanceof ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
+                // Location settings are not satisfied,
+                // but this can be fixed by showing the user a dialog.
                 try {
-                    requestingLocationUpdates = false;
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
                     ResolvableApiException resolvable = (ResolvableApiException) e;
@@ -177,6 +183,32 @@ public class LocationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void initializeRequestLocationUpdates() {
+        if (priority == Priority.PRIORITY_HIGH_ACCURACY) {
+            if (checkLocationPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.w(TAG, "ZS: checkFineLocationPermission passed.");
+                fusedLocationClient.requestLocationUpdates(
+                        locationRequest,
+                        locationCallback,
+                        Looper.getMainLooper());
+            } else {
+                Log.w(TAG, "ZS: checkFineLocationPermission failed.");
+                askLocationPermission();
+            }
+        } else {
+            if (checkLocationPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                Log.w(TAG, "ZS: checkCoarseLocationPermission passed.");
+                fusedLocationClient.requestLocationUpdates(
+                        locationRequest,
+                        locationCallback,
+                        Looper.getMainLooper());
+            } else {
+                Log.w(TAG, "ZS: checkCoarseLocationPermission failed.");
+                askCoarseLocationPermission();
+            }
+        }
     }
 
     @Override
@@ -198,9 +230,10 @@ public class LocationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        totalDistanceTV.setText(String.format("Distance: %s", totalDistance));
         Log.w(TAG, "ZS: onResume!");
+        totalDistanceTV.setText(String.format("Distance: %s", totalDistance));
         if (requestingLocationUpdates) {
+            accuracySelectedTV.setText(accuracySelected);
             startLocationUpdates();
         }
     }
@@ -220,6 +253,7 @@ public class LocationActivity extends AppCompatActivity {
             outState.putDouble("last_distance_longitude", lastLocationLongitude);
             outState.putInt("priority", priority);
             outState.putBoolean("requestingLocationUpdates", requestingLocationUpdates);
+            outState.putString("accuracy_selected", accuracySelected);
         }
     }
 
@@ -231,38 +265,70 @@ public class LocationActivity extends AppCompatActivity {
         lastLocationLongitude = savedInstanceState.getDouble("last_distance_longitude");
         priority = savedInstanceState.getInt("priority");
         requestingLocationUpdates = savedInstanceState.getBoolean("requestingLocationUpdates");
+        accuracySelected = savedInstanceState.getString("accuracy_selected");
     }
 
-    public boolean checkLocationPermission() {
+    public boolean checkLocationPermission(String permission) {
         boolean isPermitted = false;
-        if (ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(LocationActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(LocationActivity.this, permission)
+                == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(LocationActivity.this,
+                    permission + " already granted", Toast.LENGTH_SHORT).show();
             isPermitted = true;
         }
         return isPermitted;
     }
 
     public void askLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            Log.w(TAG, "showing request permission rationales.");
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(false);
-            builder.setMessage("To show your current location, requires your permission to access device's location");
-            builder.setPositiveButton("OK", (dialog, which) -> {
-                //Prompt the user once explanation has been shown
-                ActivityCompat.requestPermissions(LocationActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {
+            Log.w(TAG, "showing request fine permission rationales.");
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage("To show your current location with highest accuracy, requires " +
+                            "your permission to access device's precise location")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        //Prompt the user once explanation has been show
+                        ActivityCompat.requestPermissions(LocationActivity.this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                                REQUEST_LOCATION_PERMISSION);
+                    })
+                    .setNegativeButton("No thanks", ((dialog, which) -> dialog.cancel()))
+                    .create()
+                    .show();
         } else {
-            Log.w(TAG, "ZS: directly requesting permissions.");
+            Log.w(TAG, "ZS: directly requesting both permissions.");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
+                    REQUEST_LOCATION_PERMISSION);
+        }
+    }
+
+
+    public void askCoarseLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            Log.w(TAG, "showing request coarse permission rationales.");
+            new AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage("To show your current location, requires your permission to access" +
+                            " device's location")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        //Prompt the user once explanation has been show
+                        ActivityCompat.requestPermissions(LocationActivity.this,
+                                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                                REQUEST_COARSE_LOCATION_PERMISSION);
+                    })
+                    .setNegativeButton("No thanks", ((dialog, which) -> dialog.cancel()))
+                    .create()
+                    .show();
+        } else {
+            Log.w(TAG, "ZS: directly requesting coarse permissions.");
+            ActivityCompat.requestPermissions(LocationActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    REQUEST_COARSE_LOCATION_PERMISSION);
         }
     }
 
@@ -273,25 +339,35 @@ public class LocationActivity extends AppCompatActivity {
         Log.w(TAG, "ZS: onRequestPermissionResult.");
 
         // If request is cancelled, the result arrays are empty.
-        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
-            if (grantResults.length > 0 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted. Continue the action or workflow
                 // in your app.
                 Log.w(TAG, "ZS: fine granted.");
                 startLocationUpdates();
-            } else if (grantResults.length > 1 &&
-                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            } else if (grantResults.length > 1 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Log.w(TAG, "ZS: coarse granted.");
+                new AlertDialog.Builder(this)
+                        .setCancelable(false)
+                        .setMessage("Precise location permission is denied. Highest Accuracy is " +
+                                "not available at this time. Please grant the precise location " +
+                                "permission or view the location in Balanced Accuracy.")
+                        .setPositiveButton("OK", (dialog, which) -> dialog.cancel())
+                        .create().
+                        show();
+                accuracySelected = getString(R.string.balanced_power_accuracy_string);
+                accuracySelectedTV.setText(accuracySelected);
                 priority = Priority.PRIORITY_BALANCED_POWER_ACCURACY;
                 startLocationUpdates();
             } else {
-                // Explain to the user that the feature is unavailable because
-                // the features requires a permission that the user has denied.
-                // At the same time, respect the user's decision. Don't link to
-                // system settings in an effort to convince the user to change
-                // their decision.
-                Log.w(TAG, "ZS: showing denied dialog.");
+                Log.w(TAG, "ZS: location permission denied.");
+                requestingLocationUpdates = false;
+            }
+        } else if (requestCode == REQUEST_COARSE_LOCATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates();
+            } else {
+                Log.w(TAG, "ZS: coarse location permission denied.");
                 requestingLocationUpdates = false;
             }
         }

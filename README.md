@@ -33,13 +33,13 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 7. While searching, press back button brings up a dialog to inform user whether he/she wants to terminate the search or not
 
 ## Week6
-1. Press Location button brings up a new activity
-2. Press Share Location button brings up a dialog asking for runtime permission
-3. The dialog includes 2 options: precise or approximate location
-4. Choose precise display the FINE_LOCATION
-5. Choose approximate display the COARSE_LOCATION
-6. Display the current latitude, longitude, total travel distance
-7. Update these 3 information when location changes
-8. Total travel distance is persist in screen rotation
-9. Press Change Precision button allows user to choose mode: High accuracy, Battery saving, Display only
-10. Press Reset Distance button resets the total travel distance to 0 and restarts recording
+1. Press Location button brings up a new activity 
+2. Display the current location in (latitude, longitude), total travel distance, accuracy selected and accuracy
+3. Update (latitude, longitude), total travel distance and accuracy when location changes
+4. Update accuracy selected when 4 accuracy buttons are pressed
+5. Total travel distance is persist in screen rotation
+6. Press Reset Distance button resets the total travel distance to 0 and restarts recording
+7. Press Highest Accuracy button shows the location with ACCESS_FINE_PERMISSION and PRIORITY_HIGH_ACCURACY
+8. Press Balanced Accuracy button shows the location with PRIORITY_BALANCED_POWER_ACCURACY
+9. Press lowest Accuracy button shows the location with PRIORITY_LOW_POWER
+10. Press Passive Request button shows the location with PRIORITY_PASSIVE

@@ -104,6 +104,7 @@ public class WebServiceActivity extends AppCompatActivity {
             yearPicker.setValue(year);
 
             builder.setView(dialog)
+                    .setTitle(R.string.select_year)
                     // Add action buttons
                     .setPositiveButton("Ok", (dialog1, id) -> setDate(yearPicker.getValue(), this.yearBtN))
                     .setNegativeButton("Cancel", (dialog12, id) -> Objects.requireNonNull(YearPickerDialog.this.getDialog()).cancel());

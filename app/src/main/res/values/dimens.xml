@@ -4,4 +4,5 @@
     <dimen name="input_margin">24dp</dimen>
     <dimen name="content_horizontal">16dp</dimen>
     <dimen name="content_vertical">16dp</dimen>
+    <dimen name="inner_between">8dp</dimen>
 </resources>

@@ -98,15 +98,21 @@
         android:id="@+id/givenNameET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_vertical"
-        android:text=""
-        android:hint="@string/given_name_string"
+        android:layout_marginStart="@dimen/content_horizontal"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginEnd="@dimen/inner_between"
+        android:layout_marginBottom="@dimen/content_vertical"
         android:autofillHints="name"
+        android:hint="@string/given_name_string"
         android:inputType="text"
+        android:minHeight="48dp"
+        android:text=""
+        android:textColorHint="#78909C"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV" />
+        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV"
+        app:layout_constraintBottom_toTopOf="@id/barrier1"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -119,14 +125,42 @@
         android:id="@+id/familyNameET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/content_vertical"
-        android:text=""
-        android:hint="@string/family_name_string"
+        android:layout_marginStart="@dimen/inner_between"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginEnd="@dimen/content_horizontal"
+        android:layout_marginBottom="@dimen/content_vertical"
         android:autofillHints="name"
+        android:hint="@string/family_name_string"
         android:inputType="text"
+        android:minHeight="48dp"
+        android:text=""
+        android:textColorHint="#78909C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV" />
+        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV"
+        app:layout_constraintBottom_toTopOf="@id/barrier1"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="givenNameET" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/webRecyclerViewID"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier1"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

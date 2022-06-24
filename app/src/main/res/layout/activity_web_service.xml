@@ -12,6 +12,7 @@
         android:layout_marginTop="@dimen/content_vertical"
         android:layout_marginEnd="@dimen/content_horizontal"
         android:text="@string/explore_nobel_1_string"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/categoryDescriptionTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,5 +80,53 @@
         android:text="@string/to_string"
         app:layout_constraintStart_toStartOf="@+id/toYearDescriptionTV"
         app:layout_constraintTop_toBottomOf="@+id/toYearDescriptionTV" />
+
+
+    <TextView
+        android:id="@+id/searchDescriptionNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_horizontal"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginEnd="@dimen/content_horizontal"
+        android:text="@string/explore_nobel_Name_string"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categorySP" />
+
+    <EditText
+        android:id="@+id/givenNameET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_vertical"
+        android:text=""
+        android:hint="@string/given_name_string"
+        android:autofillHints="name"
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/familyNameET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_vertical"
+        android:text=""
+        android:hint="@string/family_name_string"
+        android:autofillHints="name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@id/searchDescriptionNameTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

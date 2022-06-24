@@ -10,12 +10,12 @@
         <entry key="app/src/main/res/drawable/ic_launcher_jm_foreground.xml" value="0.425" />
         <entry key="app/src/main/res/layout/activity_about_me.xml" value="0.325" />
         <entry key="app/src/main/res/layout/activity_clicky.xml" value="0.3975143997757523" />
-        <entry key="app/src/main/res/layout/activity_fab.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_fab.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_find_primes.xml" value="0.2695945945945946" />
         <entry key="app/src/main/res/layout/activity_link_collector.xml" value="0.40499469034032887" />
         <entry key="app/src/main/res/layout/activity_location.xml" value="0.5093722734919794" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4260070052539405" />
-        <entry key="app/src/main/res/layout/activity_web_service.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/activity_web_service.xml" value="0.46464646464646464" />
         <entry key="app/src/main/res/layout/date_picker_dialog.xml" value="0.19854824935952178" />
         <entry key="app/src/main/res/layout/item_dropdown.xml" value="0.21835970024979184" />
         <entry key="app/src/main/res/layout/item_link.xml" value="0.5154385668235542" />

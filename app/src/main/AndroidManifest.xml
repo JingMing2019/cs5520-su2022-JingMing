@@ -59,6 +59,9 @@
         <activity
             android:name=".FabActivity"
             android:exported="true" />
+        <activity
+            android:name=".WebServiceActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

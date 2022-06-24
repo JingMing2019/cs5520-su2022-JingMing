@@ -44,4 +44,19 @@
     <string name="accuracy_selected_string">Accuracy Selected:\u0020</string>
     <string name="default_accuracy_selected_string">Please select one accuracy</string>
     <string name="web_service_string">Web Service</string>
+    <string name="explore_nobel_1_string">Explore Nobel Prizes and Laureates by Category and Year</string>
+    <string name="explore_nobel_Name_string">Explore Nobel Laureates by Name</string>
+    <string name="category_string">Category</string>
+    <string name="select_year">Select Year</string>
+    <string name="nobel_name_string">Name</string>
+    <string name="given_name_string">Given Name</string>
+    <string name="family_name_string">Family Name</string>
+    <string-array name="categories">
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Medicine</item>
+        <item>Literature</item>
+        <item>Peace</item>
+        <item>Economic Sciences</item>
+    </string-array>
 </resources>

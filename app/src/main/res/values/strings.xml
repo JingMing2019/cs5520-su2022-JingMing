@@ -47,6 +47,10 @@
     <string name="explore_nobel_1_string">Explore Nobel Prizes and Laureates by Category and Year</string>
     <string name="explore_nobel_Name_string">Explore Nobel Laureates by Name</string>
     <string name="category_string">Category</string>
+    <string name="from_year_string">From Year</string>
+    <string name="to_year_string">To Year</string>
+    <string name="from_string">From</string>
+    <string name="to_string">To</string>
     <string name="category_item_string">Category Detail</string>
     <string name="select_year">Select Year</string>
     <string name="nobel_name_string">Name</string>

@@ -8,35 +8,76 @@
         android:id="@+id/searchDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/content_horizontal"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginEnd="@dimen/content_horizontal"
         android:text="@string/explore_nobel_1_string"
+        app:layout_constraintBottom_toTopOf="@id/categoryDescriptionTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/categoryTV"/>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/categoryDescriptionTV"
-        android:layout_width="wrap_content"
+        android:layout_width="108dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/input_margin"
-        android:minHeight="48dp"
+        android:layout_marginTop="@dimen/content_vertical"
         android:text="@string/category_string"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toStartOf="@id/categoryTV"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/categorySP"
+        app:layout_constraintStart_toStartOf="@+id/searchDescriptionTV"
         app:layout_constraintTop_toBottomOf="@id/searchDescriptionTV" />
 
-    <Spinner
-        android:id="@+id/categoryTV"
+    <TextView
+        android:id="@+id/fromYearDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/input_margin"
-        android:minHeight="48dp"
-        android:spinnerMode="dropdown"
-        android:contentDescription="@string/category_item_string"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:gravity="center_vertical"
+        android:text="@string/from_year_string"
+        app:layout_constraintEnd_toStartOf="@id/toYearDescriptionTV"
         app:layout_constraintStart_toEndOf="@id/categoryDescriptionTV"
         app:layout_constraintTop_toBottomOf="@id/searchDescriptionTV" />
+
+    <TextView
+        android:id="@+id/toYearDescriptionTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_vertical"
+        android:gravity="center_vertical"
+        android:text="@string/to_year_string"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fromYearDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@id/searchDescriptionTV" />
+
+
+    <Spinner
+        android:id="@+id/categorySP"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/category_item_string"
+        android:minHeight="48dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@id/fromYearBtN"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/categoryDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@id/categoryDescriptionTV" />
+
+    <Button
+        android:id="@+id/fromYearBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showFormYearPickerDialog"
+        android:text="@string/from_string"
+        app:layout_constraintStart_toStartOf="@+id/fromYearDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/fromYearDescriptionTV" />
+
+    <Button
+        android:id="@+id/toYearBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showToYearPickerDialog"
+        android:text="@string/to_string"
+        app:layout_constraintStart_toStartOf="@+id/toYearDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/toYearDescriptionTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

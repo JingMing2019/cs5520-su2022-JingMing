@@ -34,6 +34,7 @@
         android:layout_margin="@dimen/input_margin"
         android:minHeight="48dp"
         android:spinnerMode="dropdown"
+        android:contentDescription="@string/category_item_string"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/categoryDescriptionTV"
         app:layout_constraintTop_toBottomOf="@id/searchDescriptionTV" />

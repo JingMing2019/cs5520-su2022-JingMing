@@ -42,9 +42,17 @@ public class MainActivity extends AppCompatActivity{
             startActivity(intent);
         });
 
+        // click locationButton shows a new activity which display the user's current location and
+        // total travel distance
         Button locationButton = findViewById(R.id.locationID);
         locationButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+            startActivity(intent);
+        });
+
+        Button webServiceButton = findViewById(R.id.webServiceID);
+        webServiceButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, WebServiceActivity.class);
             startActivity(intent);
         });
 

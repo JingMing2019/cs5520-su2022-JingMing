@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/about_me_ID"
-        android:layout_width="wrap_content"
+        android:layout_width="148sp"
         android:layout_height="wrap_content"
         android:text="@string/about_me_string"
         android:textAllCaps="false"
@@ -45,7 +45,7 @@
 
     <Button
         android:id="@+id/clicky_ID"
-        android:layout_width="wrap_content"
+        android:layout_width="148sp"
         android:layout_height="wrap_content"
         android:text="@string/clicky_string"
         android:textAllCaps="false"
@@ -57,7 +57,7 @@
 
     <Button
         android:id="@+id/link_collector_ID"
-        android:layout_width="wrap_content"
+        android:layout_width="148sp"
         android:layout_height="wrap_content"
         android:text="@string/link_collector_string"
         android:textAllCaps="false"
@@ -68,7 +68,7 @@
 
     <Button
         android:id="@+id/findPrimesMainID"
-        android:layout_width="wrap_content"
+        android:layout_width="148sp"
         android:layout_height="wrap_content"
         android:text="@string/find_primes_string"
         android:textAllCaps="false"
@@ -79,14 +79,25 @@
 
     <Button
         android:id="@+id/locationID"
-        android:layout_width="wrap_content"
+        android:layout_width="148sp"
         android:layout_height="wrap_content"
         android:text="@string/location_string"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/webServiceID"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrier2"/>
+        app:layout_constraintTop_toBottomOf="@+id/barrier2" />
+
+    <Button
+        android:id="@+id/webServiceID"
+        android:layout_width="148sp"
+        android:layout_height="wrap_content"
+        android:text="@string/web_service_string"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/locationID"
+        app:layout_constraintTop_toBottomOf="@+id/barrier2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

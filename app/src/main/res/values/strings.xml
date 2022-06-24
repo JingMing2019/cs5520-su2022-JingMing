@@ -43,4 +43,5 @@
     <string name="location_accuracy_string">Accuracy</string>
     <string name="accuracy_selected_string">Accuracy Selected:\u0020</string>
     <string name="default_accuracy_selected_string">Please select one accuracy</string>
+    <string name="web_service_string">Web Service</string>
 </resources>

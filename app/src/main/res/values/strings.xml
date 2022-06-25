@@ -56,7 +56,9 @@
     <string name="nobel_name_string">Name</string>
     <string name="given_name_string">Given Name</string>
     <string name="family_name_string">Family Name</string>
+    <string name="search_string">Search</string>
     <string-array name="categories">
+        <item>All</item>
         <item>Physics</item>
         <item>Chemistry</item>
         <item>Medicine</item>

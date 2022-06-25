@@ -20,17 +20,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
 import java.util.Objects;
 
 public class WebServiceActivity extends AppCompatActivity {
     private static final String TAG = "JMWebServiceActivity";
+    private Spinner categorySP;
+    private Button fromYearBtN;
+    private Button toYearBtN;
+    private Button searchBtN;
+    private RecyclerView webSearchResultRV;
     private String selectedCategory;
     private String selectedFromYear;
     private String selectedToYear;
-    private Button fromYearBtN;
-    private Button toYearBtN;
     private boolean pressFrom;
 
     @Override
@@ -38,16 +42,25 @@ public class WebServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_service);
 
-        Spinner spinner = findViewById(R.id.categorySP);
+        categorySP = findViewById(R.id.categorySP);
+        createDropDownMenu();
+        fromYearBtN = findViewById(R.id.fromYearBtN);
+        toYearBtN = findViewById(R.id.toYearBtN);
+        searchBtN = findViewById(R.id.searchBtN);
+
+        webSearchResultRV = findViewById(R.id.webSearchResultRV);
+    }
+
+    // create the category drop down menu for categorySP
+    public void createDropDownMenu() {
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(WebServiceActivity.this,
                 R.array.categories, android.R.layout.simple_spinner_item);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        categorySP.setAdapter(arrayAdapter);
+        categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v(TAG, (String) parent.getItemAtPosition(position));
                 selectedCategory = (String) parent.getItemAtPosition(position);
             }
 
@@ -56,21 +69,25 @@ public class WebServiceActivity extends AppCompatActivity {
                 Toast.makeText(WebServiceActivity.this, "NothingSelected", Toast.LENGTH_SHORT).show();
             }
         });
-
-        fromYearBtN = findViewById(R.id.fromYearBtN);
-        toYearBtN = findViewById(R.id.toYearBtN);
     }
 
+    // fromYearBtN onClick listener
     public void showFormYearPickerDialog(View v) {
-        Log.v(TAG, "show_year_picker");
         YearPickerDialog yearPicker = new YearPickerDialog(fromYearBtN);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
+
     }
 
+    // toYearBtN onClick listener
     public void showToYearPickerDialog(View v) {
-        Log.v(TAG, "show_year_picker");
         YearPickerDialog yearPicker = new YearPickerDialog(toYearBtN);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
+    }
+
+    // searchBtN onClick listener
+    public void startSearch(View v) {
+
+
     }
 
     public static void showSetYear(int year, Button yearBtN) {

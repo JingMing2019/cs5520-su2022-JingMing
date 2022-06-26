@@ -60,6 +60,7 @@ public class WebServiceActivity extends AppCompatActivity {
         binding.loadingPanel.setVisibility(View.INVISIBLE);
         setContentView(view);
 
+        // create drop down menu for category
         createDropDownMenu();
 
         laureates = new ArrayList<>();
@@ -74,13 +75,14 @@ public class WebServiceActivity extends AppCompatActivity {
     // toYearBtN onClick listener
     public void showToYearPickerDialog(View v) {
         int minYear = MIN_YEAR;
-        if (!binding.fromYearBtN.getText().toString().equals("From")){
+        if (!binding.fromYearBtN.getText().toString().equals(getResources().getString(R.string.from_string))){
             minYear = Integer.parseInt(binding.fromYearBtN.getText().toString());
         }
         YearPickerDialog yearPicker = new YearPickerDialog(binding.toYearBtN, minYear);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
     }
 
+    // clearBtN onClick listener
     public void clearSelections(View v)  {
         binding.categorySP.setSelection(0);
         binding.fromYearBtN.setText(R.string.from_string);
@@ -179,12 +181,12 @@ public class WebServiceActivity extends AppCompatActivity {
                     binding.familyNameET.getText().toString().replaceAll("\\s", ""));
 
         } else if (!binding.categorySP.getSelectedItem().toString().equals("None")
-                && !binding.fromYearBtN.getText().toString().equals("From")) {
+                && !binding.fromYearBtN.getText().toString().equals(getResources().getString(R.string.from_string))) {
             String fromYear = binding.fromYearBtN.getText().toString();
             String category = binding.categorySP.getSelectedItem().toString().substring(0, 3).toLowerCase(Locale.ROOT);
             String toYear;
 
-            if (binding.toYearBtN.getText().equals("To")) {
+            if (binding.toYearBtN.getText().equals(getResources().getString(R.string.to_string))) {
                 toYear = fromYear;
             } else {
                 toYear = binding.toYearBtN.getText().toString();
@@ -382,5 +384,23 @@ public class WebServiceActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("from_year", binding.fromYearBtN.getText().toString());
+        outState.putString("to_year", binding.toYearBtN.getText().toString());
+        outState.putString("given_name", binding.givenNameET.getText().toString());
+        outState.putString("family_name", binding.familyNameET.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        binding.fromYearBtN.setText(savedInstanceState.getString("from_year"));
+        binding.toYearBtN.setText(savedInstanceState.getString("to_year"));
+        binding.givenNameET.setText(savedInstanceState.getString("given_name"));
+        binding.familyNameET.setText(savedInstanceState.getString("family_name"));
     }
 }

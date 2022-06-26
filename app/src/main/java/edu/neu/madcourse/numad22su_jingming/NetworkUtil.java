@@ -68,12 +68,4 @@ public final class NetworkUtil {
 
         return resp;
     }
-
-
-    @Deprecated
-    public static void print(Object o){
-        Log.e("log",String.valueOf(o));
-    }
-
-
 }

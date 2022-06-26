@@ -175,8 +175,8 @@ public class WebServiceActivity extends AppCompatActivity {
                 && !binding.familyNameET.getText().toString().equals("")){
             searchByCategoryOrName = false;
             url = String.format("https://api.nobelprize.org/2.1/laureates?name=%s%%20%s",
-                    binding.givenNameET.getText().toString(),
-                    binding.familyNameET.getText().toString());
+                    binding.givenNameET.getText().toString().replaceAll("\\s", ""),
+                    binding.familyNameET.getText().toString().replaceAll("\\s", ""));
 
         } else if (!binding.categorySP.getSelectedItem().toString().equals("None")
                 && !binding.fromYearBtN.getText().toString().equals("From")) {

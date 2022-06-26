@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_horizontal"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:layout_marginEnd="@dimen/content_horizontal"
         android:text="@string/explore_nobel_1_string"
         android:textStyle="bold"
@@ -22,7 +22,7 @@
         android:id="@+id/categoryDescriptionTV"
         android:layout_width="108dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:text="@string/category_string"
         app:layout_constraintBottom_toTopOf="@id/categorySP"
         app:layout_constraintStart_toStartOf="@+id/searchDescriptionTV"
@@ -32,7 +32,7 @@
         android:id="@+id/fromYearDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:text="@string/from_year_string"
         app:layout_constraintStart_toStartOf="@id/fromYearBtN"
         app:layout_constraintHorizontal_bias="0.0"
@@ -43,7 +43,7 @@
         android:id="@+id/toYearDescriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:layout_marginEnd="@dimen/content_horizontal"
         android:text="@string/to_year_string"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_horizontal"
-        android:layout_marginTop="@dimen/content_vertical"
         android:layout_marginEnd="@dimen/content_horizontal"
         android:text="@string/explore_nobel_Name_string"
         android:textStyle="bold"
@@ -102,9 +101,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_horizontal"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:layout_marginEnd="@dimen/inner_between"
-        android:layout_marginBottom="@dimen/content_vertical"
+        android:layout_marginBottom="@dimen/inner_between"
         android:autofillHints="name"
         android:hint="@string/given_name_string"
         android:inputType="text"
@@ -129,9 +128,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/inner_between"
-        android:layout_marginTop="@dimen/content_vertical"
+        android:layout_marginTop="@dimen/inner_between"
         android:layout_marginEnd="@dimen/content_horizontal"
-        android:layout_marginBottom="@dimen/content_vertical"
+        android:layout_marginBottom="@dimen/inner_between"
         android:autofillHints="name"
         android:hint="@string/family_name_string"
         android:inputType="text"
@@ -157,8 +156,18 @@
         android:layout_height="wrap_content"
         android:onClick="startSearch"
         android:text="@string/search_string"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier1" />
+
+    <Button
+        android:id="@+id/clearBtN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clearSelections"
+        android:text="@string/clear_string"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
         app:layout_constraintTop_toBottomOf="@id/barrier1" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -171,11 +180,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/webSearchResultRV"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/barrier2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier2">
+        app:layout_constraintEnd_toEndOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 

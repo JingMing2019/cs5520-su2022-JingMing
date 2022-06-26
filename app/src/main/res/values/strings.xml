@@ -57,8 +57,9 @@
     <string name="given_name_string">Given Name</string>
     <string name="family_name_string">Family Name</string>
     <string name="search_string">Search</string>
+    <string name="clear_string">Clear</string>
     <string-array name="categories">
-        <item>All</item>
+        <item>None</item>
         <item>Physics</item>
         <item>Chemistry</item>
         <item>Medicine</item>
@@ -66,4 +67,10 @@
         <item>Peace</item>
         <item>Economic Sciences</item>
     </string-array>
+    <string name="laureate_id_string">ID</string>
+    <string name="laureate_id_print_string">ID:\u0020</string>
+    <string name="laureate_full_name_string">Full Name</string>
+    <string name="laureate_prize_string">Prize</string>
+    <string name="laureate_year_string">Year</string>
+    <string name="laureate_wikipedia_string">Wikipedia</string>
 </resources>

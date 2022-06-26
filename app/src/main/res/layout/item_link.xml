@@ -14,8 +14,8 @@
         android:layout_marginEnd="@dimen/content_horizontal"
         android:layout_marginBottom="@dimen/content_horizontal"
         android:gravity="center_vertical"
-        android:minHeight="48dp"
         android:minWidth="128dp"
+        android:minHeight="48dp"
         android:text="@string/link_name_string"
         android:textColor="@color/black"
         android:textSize="18sp" />

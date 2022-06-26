@@ -11,57 +11,288 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import edu.neu.madcourse.numad22su_jingming.databinding.ActivityWebServiceBinding;
 
 public class WebServiceActivity extends AppCompatActivity {
     private static final String TAG = "JMWebServiceActivity";
-    private Spinner categorySP;
-    private Button fromYearBtN;
-    private Button toYearBtN;
-    private Button searchBtN;
-    private RecyclerView webSearchResultRV;
+    private ActivityWebServiceBinding binding;
     private String selectedCategory;
     private String selectedFromYear;
     private String selectedToYear;
-    private boolean pressFrom;
+    ListenableFuture<JSONObject> jsonObjectFuture;
+    private List<Laureate> laureates;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_service);
+        binding = ActivityWebServiceBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        categorySP = findViewById(R.id.categorySP);
         createDropDownMenu();
-        fromYearBtN = findViewById(R.id.fromYearBtN);
-        toYearBtN = findViewById(R.id.toYearBtN);
-        searchBtN = findViewById(R.id.searchBtN);
 
-        webSearchResultRV = findViewById(R.id.webSearchResultRV);
+        laureates = new ArrayList<>();
+    }
+
+    // fromYearBtN onClick listener
+    public void showFormYearPickerDialog(View v) {
+        YearPickerDialog yearPicker = new YearPickerDialog(binding.fromYearBtN);
+        yearPicker.show(getSupportFragmentManager(), "yearPicker");
+
+    }
+
+    // toYearBtN onClick listener
+    public void showToYearPickerDialog(View v) {
+        YearPickerDialog yearPicker = new YearPickerDialog(binding.toYearBtN);
+        yearPicker.show(getSupportFragmentManager(), "yearPicker");
+    }
+
+    public void clearSelections(View v)  {
+        binding.categorySP.setSelection(0);
+        selectedCategory = "";
+        binding.fromYearBtN.setText(R.string.from_string);
+        binding.toYearBtN.setText(R.string.to_string);
+        if (!binding.givenNameET.getText().toString().equals("")){
+            binding.givenNameET.setText("");
+        }
+        if (!binding.familyNameET.getText().toString().equals("")){
+            binding.familyNameET.setText("");
+        }
+        clearWebServiceResultRV();
+    }
+
+    private void clearWebServiceResultRV() {
+        if (laureates.size() != 0) {
+            for (int i = laureates.size() - 1; i > -1; i--){
+                laureates.remove(i);
+                // inform the adapter that the last item is removed from the linkList
+                Objects.requireNonNull(binding.webSearchResultRV.getAdapter()).notifyItemRemoved(laureates.size());
+            }
+        }
+    }
+
+    // searchBtN onClick listener
+    public void startSearch(View v) {
+//        String mUrl = generateURL();
+//        if (!mUrl.equals("")) {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            jsonObjectFuture = Futures.submit(() -> {
+                Log.v(TAG, "start a thread");
+                JSONObject jsonObject = new JSONObject();
+                try {
+
+                    // nobel laureates
+                    //                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Albert%20Einstein");
+                    URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Marie%20Curie");
+                    // nobel prize
+                    //                URL url = new URL("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=2010&yearTo=2020&nobelPrizeCategory=che");
+//                    URL url = new URL(mUrl);
+                    String response = NetworkUtil.httpResponse(url);
+
+                    Log.v("JMWebServiceActivity", "http response success");
+
+                    jsonObject = new JSONObject(response);
+
+                    Log.v("JMWebServiceActivity", "create new JsonObject success");
+                    return jsonObject;
+                } catch (MalformedURLException e) {
+                    Log.v(TAG, "MalformedURLException", e);
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    Log.e(TAG, "ProtocolException", e);
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    Log.v(TAG, "MIOException", e);
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    Log.v(TAG, "JSONException", e);
+                    e.printStackTrace();
+                }
+
+                return jsonObject;
+            }, executor);
+
+            Futures.addCallback(
+                    jsonObjectFuture,
+                    new FutureCallback<JSONObject>() {
+                        @Override
+                        public void onSuccess(JSONObject jsonObject) {
+
+                            displayNobelLaureates(jsonObject);
+                            //                        displayNobelPrizes(jsonObject);
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Throwable t) {
+                            Log.w(TAG, "JSONException", t);
+                        }
+                    },
+                    ContextCompat.getMainExecutor(this));
+            executor.shutdown();
+//        }
+    }
+
+    private String generateURL() {
+        String url = "";
+        if (!binding.givenNameET.getText().toString().equals("")
+                && !binding.familyNameET.getText().toString().equals("")){
+            url = String.format("https://api.nobelprize.org/2.1/laureates?name=%s%%20%s",
+                    binding.givenNameET.getText().toString(),
+                    binding.familyNameET.getText().toString());
+
+        } else if (!binding.categorySP.getSelectedItem().toString().equals("None")
+                && !binding.fromYearBtN.getText().toString().equals("From")) {
+            String fromYear = binding.fromYearBtN.getText().toString();
+            String category = binding.categorySP.getSelectedItem().toString().substring(0, 3).toLowerCase(Locale.ROOT);
+            String toYear;
+
+            if (binding.toYearBtN.getText().equals("To")) {
+                toYear = fromYear;
+            } else {
+                toYear = binding.toYearBtN.getText().toString();
+            }
+            url = String.format("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=%s&yearTo=%s&nobelPrizeCategory=%s",
+                    fromYear, toYear, category);
+        } else {
+            return url;
+        }
+
+        try {
+            return NetworkUtil.validInput(url);
+        } catch (NetworkUtil.MyException e) {
+            Log.w(TAG, "search by name url generation", e);
+            Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    private void displayNobelLaureates(JSONObject jsonObject) {
+        try {
+            String idPrefix = getResources().getString(R.string.laureate_id_print_string);
+            JSONArray arrLaureates = jsonObject.getJSONArray("laureates");
+            if (arrLaureates.length() == 0) {
+                Toast.makeText(getApplication(), "No record", Toast.LENGTH_LONG).show();
+                return;
+            }
+            laureates.clear();
+
+            JSONObject objLaureate = arrLaureates.getJSONObject(0);
+            String idInt = objLaureate.getString("id");
+            String id = String.format("%s%s", idPrefix, idInt);
+            String givenName = objLaureate.getJSONObject("givenName").getString("en");
+            String familyName = objLaureate.getJSONObject("familyName").getString("en");
+            String fullName = String.format("%s %s", givenName, familyName);
+
+            JSONArray arrPrizes = objLaureate.getJSONArray("nobelPrizes");
+            for(int i = 0; i < arrPrizes.length(); i++) {
+                JSONObject objPrize = arrPrizes.getJSONObject(i);
+                String prize = objPrize.getJSONObject("categoryFullName").getString("en");
+                String year = objPrize.getString("awardYear");
+                Laureate laureate = new Laureate(id, fullName, prize, year);
+                laureates.add(laureate);
+                Log.v(TAG, laureates.toString());
+            }
+            updateWebServiceResultRV();
+        } catch (JSONException e) {
+            Log.v(TAG,"JSONException", e);
+            e.printStackTrace();
+        }
+    }
+
+    private void displayNobelPrizes(JSONObject jsonObject) {
+        try {
+            String idPrefix = getResources().getString(R.string.laureate_id_print_string);
+            JSONArray arrPrizes = jsonObject.getJSONArray("nobelPrizes");
+            if (arrPrizes.length() == 0) {
+                Toast.makeText(getApplication(), "No record", Toast.LENGTH_LONG).show();
+                return;
+            }
+            laureates.clear();
+
+            for(int i = 0; i < arrPrizes.length(); i++) {
+                JSONObject objPrize = arrPrizes.getJSONObject(i);
+                String year = objPrize.getString("awardYear");
+                String prize = objPrize.getJSONObject("categoryFullName").getString("en");
+                JSONArray arrLaureates = objPrize.getJSONArray("laureates");
+                if (arrLaureates.length() == 0) {
+                    continue;
+                }
+                for (int j = 0; j < arrLaureates.length(); j++) {
+                    JSONObject objLaureate = arrLaureates.getJSONObject(i);
+                    String idInt = objLaureate.getString("id");
+                    String id = String.format("%s%s", idPrefix, idInt);
+                    String givenName = objLaureate.getJSONObject("givenName").getString("en");
+                    String familyName = objLaureate.getJSONObject("familyName").getString("en");
+                    String fullName = String.format("%s %s", givenName, familyName);
+                    Laureate laureate = new Laureate(id, fullName, prize, year);
+                    laureates.add(laureate);
+                }
+            }
+            updateWebServiceResultRV();
+        } catch (JSONException e) {
+            Log.v(TAG,"JSONException", e);
+            e.printStackTrace();
+        }
+    }
+
+    private void updateWebServiceResultRV() {
+        Log.v("JMWebServiceActivity", "update web service laureates: " + laureates.toString());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        binding.webSearchResultRV.setLayoutManager(linearLayoutManager);
+        binding.webSearchResultRV.setAdapter(new LaureateAdapter(laureates));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.webSearchResultRV
+                .getContext(), linearLayoutManager.getOrientation());
+        binding.webSearchResultRV.addItemDecoration(dividerItemDecoration);
     }
 
     // create the category drop down menu for categorySP
-    public void createDropDownMenu() {
+    private void createDropDownMenu() {
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(WebServiceActivity.this,
                 R.array.categories, android.R.layout.simple_spinner_item);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySP.setAdapter(arrayAdapter);
-        categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.categorySP.setAdapter(arrayAdapter);
+        binding.categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedCategory = (String) parent.getItemAtPosition(position);
+                selectedCategory = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -69,25 +300,6 @@ public class WebServiceActivity extends AppCompatActivity {
                 Toast.makeText(WebServiceActivity.this, "NothingSelected", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    // fromYearBtN onClick listener
-    public void showFormYearPickerDialog(View v) {
-        YearPickerDialog yearPicker = new YearPickerDialog(fromYearBtN);
-        yearPicker.show(getSupportFragmentManager(), "yearPicker");
-
-    }
-
-    // toYearBtN onClick listener
-    public void showToYearPickerDialog(View v) {
-        YearPickerDialog yearPicker = new YearPickerDialog(toYearBtN);
-        yearPicker.show(getSupportFragmentManager(), "yearPicker");
-    }
-
-    // searchBtN onClick listener
-    public void startSearch(View v) {
-
-
     }
 
     public static void showSetYear(int year, Button yearBtN) {

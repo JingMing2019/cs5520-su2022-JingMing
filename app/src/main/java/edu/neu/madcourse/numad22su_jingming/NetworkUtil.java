@@ -51,21 +51,14 @@ public final class NetworkUtil {
 
     public static String httpResponse(URL url) throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        Log.v("JMWebServiceActivity", "open success");
         conn.setRequestMethod("GET");
-        Log.v("JMWebServiceActivity", "set request success");
         conn.setDoInput(true);
-        Log.v("JMWebServiceActivity", "set do input success");
 
         conn.connect();
-        Log.v("JMWebServiceActivity", "connect success");
 
         // Read response.
         InputStream inputStream = conn.getInputStream();
-        Log.v("JMWebServiceActivity", "get input stream success");
-        String resp = NetworkUtil.convertStreamToString(inputStream);
-        Log.v("JMWebServiceActivity", "convert stream to string success");
 
-        return resp;
+        return NetworkUtil.convertStreamToString(inputStream);
     }
 }

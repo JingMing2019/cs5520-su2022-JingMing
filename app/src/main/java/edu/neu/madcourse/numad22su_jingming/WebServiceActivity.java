@@ -87,12 +87,8 @@ public class WebServiceActivity extends AppCompatActivity {
         binding.categorySP.setSelection(0);
         binding.fromYearBtN.setText(R.string.from_string);
         binding.toYearBtN.setText(R.string.to_string);
-        if (!binding.givenNameET.getText().toString().equals("")){
-            binding.givenNameET.setText("");
-        }
-        if (!binding.familyNameET.getText().toString().equals("")){
-            binding.familyNameET.setText("");
-        }
+        binding.givenNameET.setText("");
+        binding.familyNameET.setText("");
         clearWebServiceResultRV();
     }
 
@@ -113,11 +109,11 @@ public class WebServiceActivity extends AppCompatActivity {
         if (mUrl.equals("")) {
             return;
         }
-        Log.w(TAG, "URL: " + mUrl);
+//        Log.w(TAG, "URL: " + mUrl);
         binding.loadingPanel.setVisibility(View.VISIBLE);
         ExecutorService executor = Executors.newSingleThreadExecutor();
         jsonObjectFuture = Futures.submit(() -> {
-            Log.v(TAG, "start a thread");
+//            Log.v(TAG, "start a thread");
             JSONObject jsonObject = new JSONObject();
             try {
                 URL url = new URL(mUrl);
@@ -151,10 +147,8 @@ public class WebServiceActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
                         if(searchByCategoryOrName){
-                            Log.v(TAG, "search By Category");
                             displayNobelPrizes(jsonObject);
                         } else {
-                            Log.v(TAG, "search By Name");
                             displayNobelLaureates(jsonObject);
                         }
                         binding.loadingPanel.setVisibility(View.INVISIBLE);
@@ -162,7 +156,6 @@ public class WebServiceActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Throwable t) {
-                        Log.w(TAG, "JSONException", t);
                         binding.loadingPanel.setVisibility(View.INVISIBLE);
                     }
                 },
@@ -211,7 +204,6 @@ public class WebServiceActivity extends AppCompatActivity {
         try {
             return NetworkUtil.validInput(url);
         } catch (NetworkUtil.MyException e) {
-            Log.w(TAG, "search by name url generation", e);
             Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
@@ -240,7 +232,6 @@ public class WebServiceActivity extends AppCompatActivity {
                     String year = objPrize.getString("awardYear");
                     Laureate laureate = new Laureate(id, fullName, prize, year);
                     laureates.add(laureate);
-                    Log.v(TAG, laureates.toString());
                 }
             }
             updateWebServiceResultRV();
@@ -301,7 +292,6 @@ public class WebServiceActivity extends AppCompatActivity {
     }
 
     private void updateWebServiceResultRV() {
-        Log.v("JMWebServiceActivity", "update web service laureates: " + laureates.toString());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.webSearchResultRV.setLayoutManager(linearLayoutManager);
         binding.webSearchResultRV.setAdapter(new LaureateAdapter(laureates));

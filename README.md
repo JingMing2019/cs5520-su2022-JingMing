@@ -46,7 +46,7 @@ This repo contains the assignments from the class CS5520-Summer 2022.
 
 ## Week7 Web Service
 1. Press Web Service button brings up a new activity
-2. Provide search service with The Nobel Prize API: https://api.nobelprize.org/2.1
+2. Provide search service with The Nobel Prize API: https://api.nobelprize.org/2.1/laureates and https://api.nobelprize.org/2.1/nobelPrizes
 3. Press category drop down menu to select one category of Nobel Prize
 4. Press FROM button to choose a year from 1901 to 2021
 5. Press To button to choose a year from "from" to 2021

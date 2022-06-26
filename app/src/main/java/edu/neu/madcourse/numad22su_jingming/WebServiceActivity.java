@@ -46,6 +46,7 @@ import edu.neu.madcourse.numad22su_jingming.databinding.ActivityWebServiceBindin
 
 public class WebServiceActivity extends AppCompatActivity {
     private static final String TAG = "JMWebServiceActivity";
+    private static final int MIN_YEAR = 1901;
     private ActivityWebServiceBinding binding;
     ListenableFuture<JSONObject> jsonObjectFuture;
     private List<Laureate> laureates;
@@ -65,14 +66,18 @@ public class WebServiceActivity extends AppCompatActivity {
 
     // fromYearBtN onClick listener
     public void showFormYearPickerDialog(View v) {
-        YearPickerDialog yearPicker = new YearPickerDialog(binding.fromYearBtN);
+        YearPickerDialog yearPicker = new YearPickerDialog(binding.fromYearBtN, MIN_YEAR);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
 
     }
 
     // toYearBtN onClick listener
     public void showToYearPickerDialog(View v) {
-        YearPickerDialog yearPicker = new YearPickerDialog(binding.toYearBtN);
+        Integer minYear = MIN_YEAR;
+        if (!binding.fromYearBtN.getText().toString().equals("From")){
+            minYear = Integer.parseInt(binding.fromYearBtN.getText().toString());
+        }
+        YearPickerDialog yearPicker = new YearPickerDialog(binding.toYearBtN, minYear);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
     }
 
@@ -101,6 +106,7 @@ public class WebServiceActivity extends AppCompatActivity {
 
     // searchBtN onClick listener
     public void startSearch(View v) {
+        clearWebServiceResultRV();
         String mUrl = generateURL();
         if (mUrl.equals("")) {
             return;
@@ -111,20 +117,9 @@ public class WebServiceActivity extends AppCompatActivity {
             Log.v(TAG, "start a thread");
             JSONObject jsonObject = new JSONObject();
             try {
-
-                // nobel laureates
-                //                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Albert%20Einstein");
-//                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Marie%20Curie");
-                // nobel prize
-                //                URL url = new URL("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=2010&yearTo=2020&nobelPrizeCategory=che");
                 URL url = new URL(mUrl);
                 String response = NetworkUtil.httpResponse(url);
-
-                Log.v("JMWebServiceActivity", "http response success");
-
                 jsonObject = new JSONObject(response);
-
-                Log.v("JMWebServiceActivity", "create new JsonObject success");
                 return jsonObject;
             } catch (MalformedURLException e) {
                 Log.v(TAG, "MalformedURLException", e);
@@ -188,9 +183,19 @@ public class WebServiceActivity extends AppCompatActivity {
                 toYear = binding.toYearBtN.getText().toString();
             }
             searchByCategoryOrName = true;
-            url = String.format("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=%s&yearTo=%s&nobelPrizeCategory=%s",
+            url = String.format("https://api.nobelprize.org/2.1/nobelPrizes?limit=220&nobelPrizeYear=%s&yearTo=%s&nobelPrizeCategory=%s",
                     fromYear, toYear, category);
         } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Unable to Start Search")
+                    .setCancelable(false)
+                    .setMessage("Please check the search option.\n" +
+                            "You can either search by\n" +
+                            "1. selecting Category and Year\n" +
+                            "2. typing Given Name and Family Name.")
+                    .setPositiveButton("Ok", ((dialog, which) -> dialog.cancel()))
+                    .create()
+                    .show();
             return url;
         }
 
@@ -250,6 +255,12 @@ public class WebServiceActivity extends AppCompatActivity {
                 JSONObject objPrize = arrPrizes.getJSONObject(i);
                 String year = objPrize.getString("awardYear");
                 String prize = objPrize.getJSONObject("categoryFullName").getString("en");
+                if (!objPrize.has("laureates")) {
+                    String fullName = getResources().getString(R.string.no_laureates_string);
+                    Laureate laureate = new Laureate("", fullName, prize, year);
+                    laureates.add(laureate);
+                    continue;
+                }
                 JSONArray arrLaureates = objPrize.getJSONArray("laureates");
                 if (arrLaureates.length() == 0) {
                     continue;
@@ -258,12 +269,21 @@ public class WebServiceActivity extends AppCompatActivity {
                     JSONObject objLaureate = arrLaureates.getJSONObject(j);
                     String idInt = objLaureate.getString("id");
                     String id = String.format("%s%s", idPrefix, idInt);
-                    String fullName = objLaureate.getJSONObject("fullName").getString("en");
+                    String fullName;
+                    if (objLaureate.has("fullName")) {
+                        fullName = objLaureate.getJSONObject("fullName").getString("en");
+                    }else if(objLaureate.has("orgName")){
+                        fullName = objLaureate.getJSONObject("orgName").getString("en");
+                    } else {
+                        fullName = "";
+                    }
                     Laureate laureate = new Laureate(id, fullName, prize, year);
                     laureates.add(laureate);
                 }
             }
-            updateWebServiceResultRV();
+            if (!laureates.isEmpty()) {
+                updateWebServiceResultRV();
+            }
         } catch (JSONException e) {
             Log.v(TAG,"JSONException", e);
             e.printStackTrace();
@@ -310,11 +330,12 @@ public class WebServiceActivity extends AppCompatActivity {
     }
 
     public static class YearPickerDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-        private static final int MIN_YEAR = 1901;
         private final Button yearBtN;
+        private final Integer minYear;
 
-        public YearPickerDialog(Button yearBtN) {
+        public YearPickerDialog(Button yearBtN, Integer minYear) {
             this.yearBtN = yearBtN;
+            this.minYear = minYear;
         }
 
         @NonNull
@@ -331,14 +352,14 @@ public class WebServiceActivity extends AppCompatActivity {
             NumberPicker yearPicker = dialog.findViewById(R.id.picker_year);
 
             int year = cal.get(Calendar.YEAR);
-            yearPicker.setMinValue(MIN_YEAR);
+            yearPicker.setMinValue(minYear);
             yearPicker.setMaxValue(year - 1);
             yearPicker.setValue(year - 1);
 
             builder.setView(dialog)
                     .setTitle(R.string.select_year)
                     // Add action buttons
-                    .setPositiveButton("Ok",
+                    .setPositiveButton(R.string.ok_string,
                             (dialog1, id) -> setDate(yearPicker.getValue(), this.yearBtN))
                     .setNegativeButton("Cancel",
                             (dialog12, id) -> Objects.requireNonNull(YearPickerDialog.this.getDialog()).cancel());

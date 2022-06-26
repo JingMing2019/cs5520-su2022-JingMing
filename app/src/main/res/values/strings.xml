@@ -73,4 +73,6 @@
     <string name="laureate_prize_string">Prize</string>
     <string name="laureate_year_string">Year</string>
     <string name="laureate_wikipedia_string">Wikipedia</string>
+    <string name="no_laureates_string">No Laureates</string>
+    <string name="ok_string">OK</string>
 </resources>

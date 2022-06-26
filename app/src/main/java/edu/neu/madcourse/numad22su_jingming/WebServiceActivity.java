@@ -11,9 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +21,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -50,11 +47,9 @@ import edu.neu.madcourse.numad22su_jingming.databinding.ActivityWebServiceBindin
 public class WebServiceActivity extends AppCompatActivity {
     private static final String TAG = "JMWebServiceActivity";
     private ActivityWebServiceBinding binding;
-    private String selectedCategory;
-    private String selectedFromYear;
-    private String selectedToYear;
     ListenableFuture<JSONObject> jsonObjectFuture;
     private List<Laureate> laureates;
+    private boolean searchByCategoryOrName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +78,6 @@ public class WebServiceActivity extends AppCompatActivity {
 
     public void clearSelections(View v)  {
         binding.categorySP.setSelection(0);
-        selectedCategory = "";
         binding.fromYearBtN.setText(R.string.from_string);
         binding.toYearBtN.setText(R.string.to_string);
         if (!binding.givenNameET.getText().toString().equals("")){
@@ -107,69 +101,77 @@ public class WebServiceActivity extends AppCompatActivity {
 
     // searchBtN onClick listener
     public void startSearch(View v) {
-//        String mUrl = generateURL();
-//        if (!mUrl.equals("")) {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            jsonObjectFuture = Futures.submit(() -> {
-                Log.v(TAG, "start a thread");
-                JSONObject jsonObject = new JSONObject();
-                try {
+        String mUrl = generateURL();
+        if (mUrl.equals("")) {
+            return;
+        }
+        Log.w(TAG, "URL: " + mUrl);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        jsonObjectFuture = Futures.submit(() -> {
+            Log.v(TAG, "start a thread");
+            JSONObject jsonObject = new JSONObject();
+            try {
 
-                    // nobel laureates
-                    //                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Albert%20Einstein");
-                    URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Marie%20Curie");
-                    // nobel prize
-                    //                URL url = new URL("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=2010&yearTo=2020&nobelPrizeCategory=che");
-//                    URL url = new URL(mUrl);
-                    String response = NetworkUtil.httpResponse(url);
+                // nobel laureates
+                //                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Albert%20Einstein");
+//                URL url = new URL("https://api.nobelprize.org/2.1/laureates?name=Marie%20Curie");
+                // nobel prize
+                //                URL url = new URL("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=2010&yearTo=2020&nobelPrizeCategory=che");
+                URL url = new URL(mUrl);
+                String response = NetworkUtil.httpResponse(url);
 
-                    Log.v("JMWebServiceActivity", "http response success");
+                Log.v("JMWebServiceActivity", "http response success");
 
-                    jsonObject = new JSONObject(response);
+                jsonObject = new JSONObject(response);
 
-                    Log.v("JMWebServiceActivity", "create new JsonObject success");
-                    return jsonObject;
-                } catch (MalformedURLException e) {
-                    Log.v(TAG, "MalformedURLException", e);
-                    e.printStackTrace();
-                } catch (ProtocolException e) {
-                    Log.e(TAG, "ProtocolException", e);
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    Log.v(TAG, "MIOException", e);
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    Log.v(TAG, "JSONException", e);
-                    e.printStackTrace();
-                }
-
+                Log.v("JMWebServiceActivity", "create new JsonObject success");
                 return jsonObject;
-            }, executor);
+            } catch (MalformedURLException e) {
+                Log.v(TAG, "MalformedURLException", e);
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                Log.e(TAG, "ProtocolException", e);
+                e.printStackTrace();
+            } catch (IOException e) {
+                Log.v(TAG, "MIOException", e);
+                e.printStackTrace();
+            } catch (JSONException e) {
+                Log.v(TAG, "JSONException", e);
+                e.printStackTrace();
+            }
 
-            Futures.addCallback(
-                    jsonObjectFuture,
-                    new FutureCallback<JSONObject>() {
-                        @Override
-                        public void onSuccess(JSONObject jsonObject) {
+            return jsonObject;
+        }, executor);
 
+        Futures.addCallback(
+                jsonObjectFuture,
+                new FutureCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        if(searchByCategoryOrName){
+                            Log.v(TAG, "search By Category");
+                            displayNobelPrizes(jsonObject);
+                        } else {
+                            Log.v(TAG, "search By Name");
                             displayNobelLaureates(jsonObject);
-                            //                        displayNobelPrizes(jsonObject);
                         }
+                    }
 
-                        @Override
-                        public void onFailure(@NonNull Throwable t) {
-                            Log.w(TAG, "JSONException", t);
-                        }
-                    },
-                    ContextCompat.getMainExecutor(this));
-            executor.shutdown();
-//        }
+                    @Override
+                    public void onFailure(@NonNull Throwable t) {
+                        Log.w(TAG, "JSONException", t);
+                    }
+                },
+                ContextCompat.getMainExecutor(this));
+        executor.shutdown();
+
     }
 
     private String generateURL() {
         String url = "";
         if (!binding.givenNameET.getText().toString().equals("")
                 && !binding.familyNameET.getText().toString().equals("")){
+            searchByCategoryOrName = false;
             url = String.format("https://api.nobelprize.org/2.1/laureates?name=%s%%20%s",
                     binding.givenNameET.getText().toString(),
                     binding.familyNameET.getText().toString());
@@ -185,6 +187,7 @@ public class WebServiceActivity extends AppCompatActivity {
             } else {
                 toYear = binding.toYearBtN.getText().toString();
             }
+            searchByCategoryOrName = true;
             url = String.format("https://api.nobelprize.org/2.1/nobelPrizes?nobelPrizeYear=%s&yearTo=%s&nobelPrizeCategory=%s",
                     fromYear, toYear, category);
         } else {
@@ -215,9 +218,7 @@ public class WebServiceActivity extends AppCompatActivity {
             JSONObject objLaureate = arrLaureates.getJSONObject(0);
             String idInt = objLaureate.getString("id");
             String id = String.format("%s%s", idPrefix, idInt);
-            String givenName = objLaureate.getJSONObject("givenName").getString("en");
-            String familyName = objLaureate.getJSONObject("familyName").getString("en");
-            String fullName = String.format("%s %s", givenName, familyName);
+            String fullName = objLaureate.getJSONObject("fullName").getString("en");
 
             JSONArray arrPrizes = objLaureate.getJSONArray("nobelPrizes");
             for(int i = 0; i < arrPrizes.length(); i++) {
@@ -254,12 +255,10 @@ public class WebServiceActivity extends AppCompatActivity {
                     continue;
                 }
                 for (int j = 0; j < arrLaureates.length(); j++) {
-                    JSONObject objLaureate = arrLaureates.getJSONObject(i);
+                    JSONObject objLaureate = arrLaureates.getJSONObject(j);
                     String idInt = objLaureate.getString("id");
                     String id = String.format("%s%s", idPrefix, idInt);
-                    String givenName = objLaureate.getJSONObject("givenName").getString("en");
-                    String familyName = objLaureate.getJSONObject("familyName").getString("en");
-                    String fullName = String.format("%s %s", givenName, familyName);
+                    String fullName = objLaureate.getJSONObject("fullName").getString("en");
                     Laureate laureate = new Laureate(id, fullName, prize, year);
                     laureates.add(laureate);
                 }
@@ -284,20 +283,24 @@ public class WebServiceActivity extends AppCompatActivity {
 
     // create the category drop down menu for categorySP
     private void createDropDownMenu() {
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(WebServiceActivity.this,
-                R.array.categories, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
+                WebServiceActivity.this,
+                R.array.categories,
+                android.R.layout.simple_spinner_item);
 
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.categorySP.setAdapter(arrayAdapter);
         binding.categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedCategory = parent.getItemAtPosition(position).toString();
+                Toast.makeText(WebServiceActivity.this,
+                        "Select: " + parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(WebServiceActivity.this, "NothingSelected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebServiceActivity.this, "Nothing Selected",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -329,14 +332,16 @@ public class WebServiceActivity extends AppCompatActivity {
 
             int year = cal.get(Calendar.YEAR);
             yearPicker.setMinValue(MIN_YEAR);
-            yearPicker.setMaxValue(year);
-            yearPicker.setValue(year);
+            yearPicker.setMaxValue(year - 1);
+            yearPicker.setValue(year - 1);
 
             builder.setView(dialog)
                     .setTitle(R.string.select_year)
                     // Add action buttons
-                    .setPositiveButton("Ok", (dialog1, id) -> setDate(yearPicker.getValue(), this.yearBtN))
-                    .setNegativeButton("Cancel", (dialog12, id) -> Objects.requireNonNull(YearPickerDialog.this.getDialog()).cancel());
+                    .setPositiveButton("Ok",
+                            (dialog1, id) -> setDate(yearPicker.getValue(), this.yearBtN))
+                    .setNegativeButton("Cancel",
+                            (dialog12, id) -> Objects.requireNonNull(YearPickerDialog.this.getDialog()).cancel());
 
             return builder.create();
         }

@@ -57,6 +57,7 @@ public class WebServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWebServiceBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        binding.loadingPanel.setVisibility(View.INVISIBLE);
         setContentView(view);
 
         createDropDownMenu();
@@ -68,12 +69,11 @@ public class WebServiceActivity extends AppCompatActivity {
     public void showFormYearPickerDialog(View v) {
         YearPickerDialog yearPicker = new YearPickerDialog(binding.fromYearBtN, MIN_YEAR);
         yearPicker.show(getSupportFragmentManager(), "yearPicker");
-
     }
 
     // toYearBtN onClick listener
     public void showToYearPickerDialog(View v) {
-        Integer minYear = MIN_YEAR;
+        int minYear = MIN_YEAR;
         if (!binding.fromYearBtN.getText().toString().equals("From")){
             minYear = Integer.parseInt(binding.fromYearBtN.getText().toString());
         }
@@ -112,6 +112,7 @@ public class WebServiceActivity extends AppCompatActivity {
             return;
         }
         Log.w(TAG, "URL: " + mUrl);
+        binding.loadingPanel.setVisibility(View.VISIBLE);
         ExecutorService executor = Executors.newSingleThreadExecutor();
         jsonObjectFuture = Futures.submit(() -> {
             Log.v(TAG, "start a thread");
@@ -124,15 +125,19 @@ public class WebServiceActivity extends AppCompatActivity {
             } catch (MalformedURLException e) {
                 Log.v(TAG, "MalformedURLException", e);
                 e.printStackTrace();
+                binding.loadingPanel.setVisibility(View.INVISIBLE);
             } catch (ProtocolException e) {
                 Log.e(TAG, "ProtocolException", e);
                 e.printStackTrace();
+                binding.loadingPanel.setVisibility(View.INVISIBLE);
             } catch (IOException e) {
                 Log.v(TAG, "MIOException", e);
                 e.printStackTrace();
+                binding.loadingPanel.setVisibility(View.INVISIBLE);
             } catch (JSONException e) {
                 Log.v(TAG, "JSONException", e);
                 e.printStackTrace();
+                binding.loadingPanel.setVisibility(View.INVISIBLE);
             }
 
             return jsonObject;
@@ -150,11 +155,13 @@ public class WebServiceActivity extends AppCompatActivity {
                             Log.v(TAG, "search By Name");
                             displayNobelLaureates(jsonObject);
                         }
+                        binding.loadingPanel.setVisibility(View.INVISIBLE);
                     }
 
                     @Override
                     public void onFailure(@NonNull Throwable t) {
                         Log.w(TAG, "JSONException", t);
+                        binding.loadingPanel.setVisibility(View.INVISIBLE);
                     }
                 },
                 ContextCompat.getMainExecutor(this));
@@ -212,27 +219,27 @@ public class WebServiceActivity extends AppCompatActivity {
 
     private void displayNobelLaureates(JSONObject jsonObject) {
         try {
+            laureates.clear();
             String idPrefix = getResources().getString(R.string.laureate_id_print_string);
             JSONArray arrLaureates = jsonObject.getJSONArray("laureates");
             if (arrLaureates.length() == 0) {
-                Toast.makeText(getApplication(), "No record", Toast.LENGTH_LONG).show();
-                return;
-            }
-            laureates.clear();
+                laureates.add(new Laureate("", "", "",
+                        getResources().getString(R.string.no_record_string)));
+            } else {
+                JSONObject objLaureate = arrLaureates.getJSONObject(0);
+                String idInt = objLaureate.getString("id");
+                String id = String.format("%s%s", idPrefix, idInt);
+                String fullName = objLaureate.getJSONObject("fullName").getString("en");
 
-            JSONObject objLaureate = arrLaureates.getJSONObject(0);
-            String idInt = objLaureate.getString("id");
-            String id = String.format("%s%s", idPrefix, idInt);
-            String fullName = objLaureate.getJSONObject("fullName").getString("en");
-
-            JSONArray arrPrizes = objLaureate.getJSONArray("nobelPrizes");
-            for(int i = 0; i < arrPrizes.length(); i++) {
-                JSONObject objPrize = arrPrizes.getJSONObject(i);
-                String prize = objPrize.getJSONObject("categoryFullName").getString("en");
-                String year = objPrize.getString("awardYear");
-                Laureate laureate = new Laureate(id, fullName, prize, year);
-                laureates.add(laureate);
-                Log.v(TAG, laureates.toString());
+                JSONArray arrPrizes = objLaureate.getJSONArray("nobelPrizes");
+                for (int i = 0; i < arrPrizes.length(); i++) {
+                    JSONObject objPrize = arrPrizes.getJSONObject(i);
+                    String prize = objPrize.getJSONObject("categoryFullName").getString("en");
+                    String year = objPrize.getString("awardYear");
+                    Laureate laureate = new Laureate(id, fullName, prize, year);
+                    laureates.add(laureate);
+                    Log.v(TAG, laureates.toString());
+                }
             }
             updateWebServiceResultRV();
         } catch (JSONException e) {
@@ -243,42 +250,43 @@ public class WebServiceActivity extends AppCompatActivity {
 
     private void displayNobelPrizes(JSONObject jsonObject) {
         try {
+            laureates.clear();
             String idPrefix = getResources().getString(R.string.laureate_id_print_string);
             JSONArray arrPrizes = jsonObject.getJSONArray("nobelPrizes");
-            if (arrPrizes.length() == 0) {
-                Toast.makeText(getApplication(), "No record", Toast.LENGTH_LONG).show();
-                return;
-            }
-            laureates.clear();
 
-            for(int i = 0; i < arrPrizes.length(); i++) {
-                JSONObject objPrize = arrPrizes.getJSONObject(i);
-                String year = objPrize.getString("awardYear");
-                String prize = objPrize.getJSONObject("categoryFullName").getString("en");
-                if (!objPrize.has("laureates")) {
-                    String fullName = getResources().getString(R.string.no_laureates_string);
-                    Laureate laureate = new Laureate("", fullName, prize, year);
-                    laureates.add(laureate);
-                    continue;
-                }
-                JSONArray arrLaureates = objPrize.getJSONArray("laureates");
-                if (arrLaureates.length() == 0) {
-                    continue;
-                }
-                for (int j = 0; j < arrLaureates.length(); j++) {
-                    JSONObject objLaureate = arrLaureates.getJSONObject(j);
-                    String idInt = objLaureate.getString("id");
-                    String id = String.format("%s%s", idPrefix, idInt);
-                    String fullName;
-                    if (objLaureate.has("fullName")) {
-                        fullName = objLaureate.getJSONObject("fullName").getString("en");
-                    }else if(objLaureate.has("orgName")){
-                        fullName = objLaureate.getJSONObject("orgName").getString("en");
-                    } else {
-                        fullName = "";
+            if (arrPrizes.length() == 0) {
+                laureates.add(new Laureate("", "", "",
+                        getResources().getString(R.string.no_record_string)));
+            } else {
+                for (int i = 0; i < arrPrizes.length(); i++) {
+                    JSONObject objPrize = arrPrizes.getJSONObject(i);
+                    String year = objPrize.getString("awardYear");
+                    String prize = objPrize.getJSONObject("categoryFullName").getString("en");
+                    if (!objPrize.has("laureates")) {
+                        String fullName = getResources().getString(R.string.no_laureates_string);
+                        Laureate laureate = new Laureate("", fullName, prize, year);
+                        laureates.add(laureate);
+                        continue;
                     }
-                    Laureate laureate = new Laureate(id, fullName, prize, year);
-                    laureates.add(laureate);
+                    JSONArray arrLaureates = objPrize.getJSONArray("laureates");
+                    if (arrLaureates.length() == 0) {
+                        continue;
+                    }
+                    for (int j = 0; j < arrLaureates.length(); j++) {
+                        JSONObject objLaureate = arrLaureates.getJSONObject(j);
+                        String idInt = objLaureate.getString("id");
+                        String id = String.format("%s%s", idPrefix, idInt);
+                        String fullName;
+                        if (objLaureate.has("fullName")) {
+                            fullName = objLaureate.getJSONObject("fullName").getString("en");
+                        } else if (objLaureate.has("orgName")) {
+                            fullName = objLaureate.getJSONObject("orgName").getString("en");
+                        } else {
+                            fullName = "";
+                        }
+                        Laureate laureate = new Laureate(id, fullName, prize, year);
+                        laureates.add(laureate);
+                    }
                 }
             }
             if (!laureates.isEmpty()) {

@@ -74,5 +74,8 @@
     <string name="laureate_year_string">Year</string>
     <string name="laureate_wikipedia_string">Wikipedia</string>
     <string name="no_laureates_string">No Laureates</string>
+    <string name="no_record_string">No Matched Record</string>
     <string name="ok_string">OK</string>
+    <string name="search_failed_string">Search Failed</string>
+    <string name="decode_json_failed_string">Decode JSON object Failed</string>
 </resources>
